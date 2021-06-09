@@ -9,7 +9,14 @@ assignees: ''
 
 ### Description
 
-> Describe your request here, starting in the form of a user story _e.g. As a user, I want to see all tasks due today, so that I can plan my day_
+<!-- Describe your request here, starting in the form of a user story _e.g. As a user, I want to see all tasks due today, so that I can plan my day_ -->
+
+**As a**
+
+**I want to**
+
+**So that I can**
+
 
 ### Requirements (place an `x` in each of the `[ ]`)
 * [ ] I've read and understood the [Contributing guidelines](../CONTRIBUTING.md) and have done my best effort to follow them.
