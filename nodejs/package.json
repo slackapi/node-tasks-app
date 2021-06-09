@@ -1,0 +1,26 @@
+{
+  "name": "slackapi-tasks-app",
+  "version": "1.0.0",
+  "description": "Tasks App is a sample Task Management app built on the Slack Platform.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slackapi/tasks-app.git"
+  },
+  "keywords": [
+    "slackapi"
+  ],
+  "author": "Slack Technologies",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slackapi/tasks-app/issues"
+  },
+  "homepage": "https://github.com/slackapi/tasks-app#readme",
+  "dependencies": {
+    "@slack/bolt": "^3.4.0",
+    "dotenv": "^10.0.0"
+  }
+}
