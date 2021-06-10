@@ -9,7 +9,7 @@
 4. Review the configuration and click *Create*
 5. Now click *Install to Workspace* and *Allow* on the screen that follows. You'll be redirected to the App Configuration dashboard.
 
-**Environment variables**
+**Set Environment Variables**
 Before you can run the app, you'll need to store two Slack tokens as environment variables.
 
 1. Copy `.env.sample` to `.env`
