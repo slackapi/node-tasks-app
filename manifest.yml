@@ -11,6 +11,11 @@ features:
   bot_user:
     display_name: Tasks
     always_online: false
+  shortcuts:
+    - name: Create a task
+      type: global
+      callback_id: global_new_task
+      description: Quickly add a task to your list
 oauth_config:
   scopes:
     bot:
