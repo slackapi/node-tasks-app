@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     isComplete: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: false
     }
   }, 
