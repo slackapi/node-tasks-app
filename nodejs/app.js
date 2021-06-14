@@ -5,7 +5,7 @@ const { App } = require('@slack/bolt');
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_URI);
 
-const { shortcutsListener } = require('./listeners')
+const { shortcutsListener, viewsListener } = require('./listeners')
 
 // Initializes your app with your bot token and signing secret
 const app = new App({
@@ -15,6 +15,8 @@ const app = new App({
 });
 
 shortcutsListener.globalNewTask(app);
+
+viewsListener.newTaskModal(app);
 
 (async () => {
   try {
