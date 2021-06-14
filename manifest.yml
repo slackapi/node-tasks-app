@@ -8,7 +8,16 @@ features:
     home_tab_enabled: false
     messages_tab_enabled: true
     messages_tab_read_only_enabled: true
+  bot_user:
+    display_name: Tasks
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - commands
 settings:
+  interactivity:
+    is_enabled: true
   org_deploy_enabled: false
-  socket_mode_enabled: false
+  socket_mode_enabled: true
   is_hosted: false
