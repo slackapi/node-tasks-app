@@ -3,9 +3,6 @@ const { User, Task } = require('../../models')
 module.exports = app => {
     app.view('new-task-modal', async ({ack, view, body}) => {
         await ack();
-        console.log(view);
-        console.log('==========');
-        console.log(body);
 
         try {
             const queryResult = await User.findOrCreate({
