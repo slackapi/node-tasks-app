@@ -1,5 +1,5 @@
 const { User, Task } = require('../../models')
-const { modals } = require('../../block-kit')
+const { modals } = require('../../user-interface')
 
 module.exports = app => {
     app.shortcut('global_new_task', async ({ shortcut, ack, client }) => {
