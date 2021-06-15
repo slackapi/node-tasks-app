@@ -11,8 +11,8 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      isComplete: {
-        type: Sequelize.BOOLEAN
+      status: {
+        type: Sequelize.ENUM('OPEN', 'CLOSED')
       },
       createdAt: {
         allowNull: false,

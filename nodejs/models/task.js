@@ -16,9 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   Task.init({
     // Model attributes are defined here
     title: DataTypes.STRING,
-    isComplete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
+    status: {
+      type: DataTypes.ENUM,
+      values: ['OPEN', 'CLOSED'],
+      defaultValue: 'OPEN'
     }
   }, 
   {
