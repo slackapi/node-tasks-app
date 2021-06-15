@@ -7,8 +7,8 @@ module.exports = app => {
         try {
             const queryResult = await User.findOrCreate({
                 where: {
-                    slackID: body.user.id,
-                    workspaceID: body.team.id
+                    slackUserID: body.user.id,
+                    slackWorkspaceID: body.team.id
                 },
                 include : [
                     Task

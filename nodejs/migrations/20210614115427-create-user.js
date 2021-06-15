@@ -8,14 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      slackID: {
+      slackUserID: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      slackOrganizationID: {
         type: Sequelize.STRING
       },
-      enterpriseID: {
-        type: Sequelize.STRING
-      },
-      workspaceID: {
-        type: Sequelize.BOOLEAN
+      slackWorkspaceID: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
