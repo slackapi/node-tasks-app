@@ -7,7 +7,7 @@ module.exports = app => {
             await ack();
             await client.views.open({
                 trigger_id: shortcut.trigger_id,
-                view: modals.newTaskModal()
+                view: modals.newTask()
             });
             console.log('global_new_task called')
         } catch (error) {

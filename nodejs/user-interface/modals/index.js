@@ -1,3 +1,5 @@
 module.exports = {
-    newTaskModal: require('./new-task')
+    newTask: require('./new-task'),
+    taskCreated: require('./task-created'),
+    taskCreationError: require('./task-creation-error')
 };
