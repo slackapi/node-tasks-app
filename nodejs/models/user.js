@@ -14,9 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    slackID: DataTypes.STRING,
-    enterpriseID: DataTypes.STRING,
-    workspaceID: DataTypes.BOOLEAN,
+    slackUserID: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    slackOrganizationID: {
+      type: DataTypes.STRING
+    },
+    slackWorkspaceID: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'User',
