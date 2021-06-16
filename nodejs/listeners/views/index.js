@@ -1,5 +1,4 @@
-const { newTaskModal } = require('./newTaskModal');
-
+/* eslint-disable global-require */
 module.exports = {
-  newTaskModal,
+  newTaskModal: require('./newTaskModal'),
 };

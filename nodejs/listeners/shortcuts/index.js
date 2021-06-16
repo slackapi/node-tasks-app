@@ -1,5 +1,4 @@
-const { globalNewTask } = require('./global-new-task');
-
+/* eslint-disable global-require */
 module.exports = {
-  globalNewTask,
+  globalNewTask: require('./global-new-task'),
 };
