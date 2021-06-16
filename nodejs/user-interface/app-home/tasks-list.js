@@ -8,7 +8,7 @@ module.exports = (tasks) => {
     return HomeTab({ callbackId: 'tasks-home' }).blocks(
       Header({ text: `You have ${tasks.length} open ${pluralize('task', tasks.length)}` }),
       Divider(),
-      Blocks.Input({ label: 'Open Tasks' }).dispatchAction().element(Elements.Checkboxes({ actionId: 'taskListHome' }).options(tasks.map((task) => Bits.Option({ text: task.title, value: `task-${task.id}` })))),
+      Blocks.Input({ label: 'Open Tasks', blockId: 'task-status-change' }).dispatchAction().element(Elements.Checkboxes({ actionId: 'taskListHome' }).options(tasks.map((task) => Bits.Option({ text: task.title, value: `task-${task.id}` })))),
     ).buildToJSON();
   }
   return HomeTab({ callbackId: 'no-tasks-home' }).blocks(
