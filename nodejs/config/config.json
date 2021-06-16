@@ -1,0 +1,11 @@
+{
+  "development": {
+    "use_env_variable": "DB_URI"
+  },
+  "test": {
+    "use_env_variable": "DB_URI"
+  },
+  "production": {
+    "use_env_variable": "DB_URI"
+  }
+}

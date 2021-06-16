@@ -1,6 +1,5 @@
 # Ignore Database config from sequelize CLI
 *.sqlite3
-config/ 
 
 # Logs
 logs
