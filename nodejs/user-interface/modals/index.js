@@ -1,9 +1,7 @@
-const { newTask } = require('./new-task');
-const { taskCreated } = require('./task-created');
-const { taskCreationError } = require('./task-creation-error');
+/* eslint-disable global-require */
 
 module.exports = {
-  newTask,
-  taskCreated,
-  taskCreationError,
+  newTask: require('./new-task'),
+  taskCreated: require('./task-created'),
+  taskCreationError: require('./task-creation-error'),
 };
