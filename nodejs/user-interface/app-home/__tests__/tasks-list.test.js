@@ -39,7 +39,7 @@ test('Returns blocks for the task list home view if no tasks available', () => {
     ],
     type: 'home',
   };
-  expect(tasksList([])).toEqual(JSON.stringify(expected));
+  expect(tasksList([], [])).toEqual(JSON.stringify(expected));
 });
 
 test.todo('Returns blocks for the task list home view if tasks available');
