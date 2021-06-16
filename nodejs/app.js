@@ -6,7 +6,7 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(process.env.DB_URI);
 
-const { shortcutsListener, viewsListener } = require('./listeners');
+const { shortcutsListener, viewsListener, eventsListener } = require('./listeners');
 
 // Initializes your app with your bot token and signing secret
 const app = new App({
@@ -18,6 +18,8 @@ const app = new App({
 shortcutsListener.globalNewTask(app);
 
 viewsListener.newTaskModal(app);
+
+eventsListener.appHomeOpened(app);
 
 (async () => {
   try {
