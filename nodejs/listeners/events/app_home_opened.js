@@ -16,7 +16,11 @@ module.exports = (app) => {
       const user = queryResult[0];
       await client.views.publish({
         user_id: event.user,
-        view: tasksList(await user.getTasks()),
+        view: tasksList(await user.getTasks({
+          where: {
+            status: 'OPEN',
+          },
+        })),
       });
     } catch (error) {
       // eslint-disable-next-line no-console
