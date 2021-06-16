@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     /**
@@ -12,16 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Task.belongsTo(models.User);
     }
-  };
+  }
   Task.init({
     // Model attributes are defined here
     title: DataTypes.STRING,
     status: {
       type: DataTypes.ENUM,
       values: ['OPEN', 'CLOSED'],
-      defaultValue: 'OPEN'
-    }
-  }, 
+      defaultValue: 'OPEN',
+    },
+  },
   {
     sequelize,
     modelName: 'Task',

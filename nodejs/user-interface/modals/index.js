@@ -1,5 +1,9 @@
+const { newTask } = require('./new-task');
+const { taskCreated } = require('./task-created');
+const { taskCreationError } = require('./task-creation-error');
+
 module.exports = {
-    newTask: require('./new-task'),
-    taskCreated: require('./task-created'),
-    taskCreationError: require('./task-creation-error')
+  newTask,
+  taskCreated,
+  taskCreationError,
 };

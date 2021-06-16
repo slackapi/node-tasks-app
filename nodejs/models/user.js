@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(models.Task);
     }
-  };
+  }
   User.init({
     slackUserID: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     slackOrganizationID: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     slackWorkspaceID: {
       type: DataTypes.STRING,

@@ -1,10 +1,8 @@
-const { Modal, Blocks, Elements } = require('slack-block-builder');
+const { Modal, Blocks } = require('slack-block-builder');
 
-module.exports = (taskTitle) => {
-    return Modal({ title: 'Task created', callbackId: 'new-task-modal'})
-        .blocks(
-            Blocks.Section({
-                text: `${taskTitle} created`
-            })
-        ).buildToJSON();
-}
+module.exports = (taskTitle) => Modal({ title: 'Task created', callbackId: 'new-task-modal' })
+  .blocks(
+    Blocks.Section({
+      text: `${taskTitle} created`,
+    }),
+  ).buildToJSON();

@@ -1,3 +1,5 @@
+const { newTaskModal } = require('./newTaskModal');
+
 module.exports = {
-    newTaskModal: require('./newTaskModal')
+  newTaskModal,
 };
