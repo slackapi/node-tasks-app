@@ -1,6 +1,5 @@
 module.exports = (app) => {
-  app.action({ action_id: 'closedTaskListHome', type: 'block_actions' }, async ({ ack, action }) => {
+  app.action({ action_id: 'closedTaskListHome', type: 'block_actions' }, async ({ ack }) => {
     await ack();
-    console.log(action.selected_options);
   });
 };
