@@ -26,7 +26,8 @@ viewsListener.newTaskModal(app);
 
 eventsListener.appHomeOpened(app);
 
-actionsListener.blockTaskStatusChange(app);
+actionsListener.blockOpenTaskListHome(app);
+actionsListener.blockClosedTaskListHome(app);
 
 (async () => {
   try {

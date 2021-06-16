@@ -3,12 +3,13 @@ const {
 } = require('slack-block-builder');
 const pluralize = require('pluralize');
 
-module.exports = (tasks) => {
-  if (tasks.length > 0) {
+module.exports = (openTasks, completedTasks) => {
+  if (openTasks.length > 0 || completedTasks.length > 0) {
     return HomeTab({ callbackId: 'tasks-home' }).blocks(
-      Header({ text: `You have ${tasks.length} open ${pluralize('task', tasks.length)}` }),
+      Header({ text: `You have ${openTasks.length} open ${pluralize('task', openTasks.length)}` }),
       Divider(),
-      Blocks.Input({ label: 'Open Tasks', blockId: 'task-status-change' }).dispatchAction().element(Elements.Checkboxes({ actionId: 'taskListHome' }).options(tasks.map((task) => Bits.Option({ text: task.title, value: `task-${task.id}` })))),
+      Blocks.Input({ label: 'Open Tasks', blockId: 'open-task-status-change' }).dispatchAction().element(Elements.Checkboxes({ actionId: 'openTaskListHome' }).options(openTasks.map((task) => Bits.Option({ text: task.title, value: `open-task-${task.id}` })))),
+      Blocks.Input({ label: 'Completed Tasks', blockId: 'completed-task-status-change' }).dispatchAction().element(Elements.Checkboxes({ actionId: 'closedTaskListHome' }).options(completedTasks.map((task) => Bits.Option({ text: task.title, value: `completed-task-${task.id}` }))).initialOptions(completedTasks.map((task) => Bits.Option({ text: task.title, value: `completed-task-${task.id}` })))),
     ).buildToJSON();
   }
   return HomeTab({ callbackId: 'no-tasks-home' }).blocks(

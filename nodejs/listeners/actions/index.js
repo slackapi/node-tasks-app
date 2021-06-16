@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
 module.exports = {
-  blockTaskStatusChange: require('./block_task_status_change'),
+  blockClosedTaskListHome: require('./block_closed_task_list_home'),
+  blockOpenTaskListHome: require('./block_open_task_list_home'),
 };

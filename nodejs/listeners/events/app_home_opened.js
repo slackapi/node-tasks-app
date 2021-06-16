@@ -14,13 +14,22 @@ module.exports = (app) => {
         ],
       });
       const user = queryResult[0];
+
+      const openTasks = await user.getTasks({
+        where: {
+          status: 'OPEN',
+        },
+      });
+
+      const completedTasks = await user.getTasks({
+        where: {
+          status: 'CLOSED',
+        },
+      });
+
       await client.views.publish({
         user_id: event.user,
-        view: tasksList(await user.getTasks({
-          where: {
-            status: 'OPEN',
-          },
-        })),
+        view: tasksList(openTasks, completedTasks),
       });
     } catch (error) {
       // eslint-disable-next-line no-console
