@@ -2,25 +2,8 @@ const { tasksList } = require('../index');
 
 test('Returns blocks for the task list home view if no tasks available', () => {
   const expected = {
-    callback_id: 'no-tasks-home',
+    callback_id: 'tasks-home',
     blocks: [
-      {
-        text: {
-          type: 'plain_text',
-          text: 'No open tasks',
-        },
-        type: 'header',
-      },
-      {
-        type: 'divider',
-      },
-      {
-        text: {
-          type: 'mrkdwn',
-          text: "Looks like you've got nothing to do. You can create a task by clicking the button below.",
-        },
-        type: 'section',
-      },
       {
         block_id: 'task-creation-actions',
         elements: [
@@ -35,6 +18,23 @@ test('Returns blocks for the task list home view if no tasks available', () => {
           },
         ],
         type: 'actions',
+      },
+      {
+        text: {
+          type: 'plain_text',
+          text: 'No open tasks',
+        },
+        type: 'header',
+      },
+      {
+        type: 'divider',
+      },
+      {
+        text: {
+          type: 'mrkdwn',
+          text: "Looks like you've got nothing to do.",
+        },
+        type: 'section',
       },
     ],
     type: 'home',
