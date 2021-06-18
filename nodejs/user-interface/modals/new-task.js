@@ -1,11 +1,25 @@
 const { Modal, Blocks, Elements } = require('slack-block-builder');
 
-module.exports = () => Modal({ title: 'Create new task', submit: 'Create', callbackId: 'new-task-modal' })
-  .blocks(
-    Blocks.Input({ label: 'New task', blockId: 'taskTitle' }).element(
-      Elements.TextInput({
+module.exports = (prefilledTitle) => {
+  const textInput = (taskTitle) => {
+    if (taskTitle) {
+      return Elements.TextInput({
         placeholder: 'Do this thing',
         actionId: 'taskTitle',
-      }),
-    ),
-  ).buildToJSON();
+        initialValue: taskTitle,
+      });
+    }
+
+    return Elements.TextInput({
+      placeholder: 'Do this thing',
+      actionId: 'taskTitle',
+    });
+  };
+
+  return Modal({ title: 'Create new task', submit: 'Create', callbackId: 'new-task-modal' })
+    .blocks(
+      Blocks.Input({ label: 'New task', blockId: 'taskTitle' }).element(
+        textInput(prefilledTitle),
+      ),
+    ).buildToJSON();
+};

@@ -16,6 +16,10 @@ features:
       type: global
       callback_id: global_new_task
       description: Quickly add a task to your list
+    - name: Create a task
+      type: message
+      callback_id: message_new_task
+      description: Create a task from this message
 oauth_config:
   scopes:
     bot:
