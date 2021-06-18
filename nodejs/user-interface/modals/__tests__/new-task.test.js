@@ -1,5 +1,4 @@
 const { newTask } = require('../index');
-const taskCreationError = require('../task-creation-error');
 
 test('Returns blocks for the new task modal if no prefill is provided', () => {
   const expected = {
