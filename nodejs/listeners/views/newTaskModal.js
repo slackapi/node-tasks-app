@@ -1,8 +1,30 @@
+const { DateTime } = require('luxon');
+
 const { User, Task } = require('../../models');
 const { modals } = require('../../user-interface');
 
 module.exports = (app) => {
   app.view('new-task-modal', async ({ ack, view, body }) => {
+    const providedValues = view.state.values;
+
+    const taskTitle = providedValues.taskTitle.taskTitle.value;
+
+    const taskDueDate = DateTime.fromISO(providedValues.taskDueDate.taskDueDate.selected_date).endOf('day');
+
+    const diffInDays = taskDueDate.diffNow('days').toObject().days;
+
+    // Task due date is in the past, so reject
+    if (diffInDays < 0) {
+      await ack(
+        {
+          response_action: 'errors',
+          errors: {
+            taskDueDate: 'Please select a due date in the future',
+          },
+        },
+      );
+    }
+
     try {
       const queryResult = await User.findOrCreate({
         where: {
@@ -16,21 +38,22 @@ module.exports = (app) => {
       const user = queryResult[0];
 
       user.createTask({
-        title: view.state.values.taskTitle.taskTitle.value,
+        title: taskTitle,
+        dueDate: taskDueDate,
       });
 
       await user.save();
       await ack(
         {
           response_action: 'update',
-          view: modals.taskCreated(view.state.values.taskTitle.taskTitle.value),
+          view: modals.taskCreated(taskTitle),
         },
       );
     } catch (error) {
       await ack(
         {
           response_action: 'update',
-          view: modals.taskCreationError(view.state.values.taskTitle.taskTitle.value),
+          view: modals.taskCreationError(taskTitle),
         },
       );
       // eslint-disable-next-line no-console

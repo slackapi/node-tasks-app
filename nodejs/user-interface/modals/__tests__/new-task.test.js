@@ -15,7 +15,7 @@ test('Returns blocks for the new task modal', () => {
       {
         label: {
           type: 'plain_text',
-          text: 'New task',
+          text: 'Title',
         },
         block_id: 'taskTitle',
         element: {
@@ -25,6 +25,19 @@ test('Returns blocks for the new task modal', () => {
           },
           action_id: 'taskTitle',
           type: 'plain_text_input',
+        },
+        type: 'input',
+      },
+      {
+        label: {
+          type: 'plain_text',
+          text: 'Due date',
+        },
+        block_id: 'taskDueDate',
+        optional: true,
+        element: {
+          action_id: 'taskDueDate',
+          type: 'datepicker',
         },
         type: 'input',
       },
