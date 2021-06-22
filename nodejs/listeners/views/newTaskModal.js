@@ -23,7 +23,7 @@ module.exports = (app) => {
           },
         },
       );
-        return;
+      return;
     }
 
     try {
