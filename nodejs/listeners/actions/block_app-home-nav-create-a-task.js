@@ -1,7 +1,7 @@
 const { modals } = require('../../user-interface');
 
 module.exports = (app) => {
-  app.action('create-a-task-app-home', async ({ body, ack, client }) => {
+  app.action('app-home-nav-create-a-task', async ({ body, ack, client }) => {
     try {
       await ack();
       await client.views.open({

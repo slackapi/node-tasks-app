@@ -28,6 +28,8 @@ eventsListener.appHomeOpened(app);
 
 actionsListener.blockOpenTaskListHome(app);
 actionsListener.blockCreateATaskAppHome(app);
+actionsListener.blockAppHomeNavOpen(app);
+actionsListener.blockAppHomeNavCompleted(app);
 
 (async () => {
   try {

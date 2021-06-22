@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 
 module.exports = {
-  tasksList: require('./tasks-list'),
+  openTasksView: require('./open-tasks-view'),
+  completedTasksView: require('./completed-tasks-view'),
 };
