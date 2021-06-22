@@ -2,7 +2,7 @@ const { Task } = require('../../models');
 const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
-  app.action({ action_id: 'openTaskListHome', type: 'block_actions' }, async ({
+  app.action({ action_id: 'blockOpenTaskCheckboxClicked', type: 'block_actions' }, async ({
     ack, action, client, body,
   }) => {
     await ack();

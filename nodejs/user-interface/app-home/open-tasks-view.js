@@ -35,7 +35,7 @@ module.exports = (openTasks) => {
   for (start, end; start < end; start += maxOptionsLength) {
     holdingArray = openTasks.slice(start, start + maxOptionsLength);
     tasksInputsArray.push(
-      Input({ label: ' ', blockId: `open-task-status-change-${start}` }).dispatchAction().element(Elements.Checkboxes({ actionId: 'openTaskListHome' }).options(holdingArray.map((task) => Bits.Option({ text: task.title, value: `open-task-${task.id}` })))),
+      Input({ label: ' ', blockId: `open-task-status-change-${start}` }).dispatchAction().element(Elements.Checkboxes({ actionId: 'blockOpenTaskCheckboxClicked' }).options(holdingArray.map((task) => Bits.Option({ text: task.title, value: `open-task-${task.id}` })))),
     );
   }
   homeTab.blocks(

@@ -26,7 +26,7 @@ viewsListener.newTaskModal(app);
 
 eventsListener.appHomeOpened(app);
 
-actionsListener.blockOpenTaskListHome(app);
+actionsListener.blockOpenTaskCheckboxClicked(app);
 actionsListener.blockCreateATaskAppHome(app);
 actionsListener.blockAppHomeNavOpen(app);
 actionsListener.blockAppHomeNavCompleted(app);
