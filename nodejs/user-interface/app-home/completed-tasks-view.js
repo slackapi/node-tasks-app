@@ -21,11 +21,13 @@ module.exports = (recentlyCompletedTasks) => {
     return homeTab.buildToJSON();
   }
 
-  const completedTaskList = recentlyCompletedTasks.length > 0 ? recentlyCompletedTasks.map((task) => `• ~${task.title}~`).join('\n') : '*None*';
+  const completedTaskList = recentlyCompletedTasks.map((task) => Section({ text: `• ~${task.title}~` }).accessory(Elements.Button({ text: 'Reopen' }).value(`${task.id}`).actionId('reopen-task')));
+
   homeTab.blocks(
     Header({ text: `You have ${recentlyCompletedTasks.length} recently completed ${pluralize('task', recentlyCompletedTasks.length)}` }),
     Divider(),
-    Section({ text: completedTaskList }),
+    completedTaskList,
   );
+
   return homeTab.buildToJSON();
 };

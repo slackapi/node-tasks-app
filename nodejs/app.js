@@ -30,6 +30,7 @@ actionsListener.blockOpenTaskCheckboxClicked(app);
 actionsListener.blockCreateATaskAppHome(app);
 actionsListener.blockAppHomeNavOpen(app);
 actionsListener.blockAppHomeNavCompleted(app);
+actionsListener.blockReopenTask(app);
 
 (async () => {
   try {
