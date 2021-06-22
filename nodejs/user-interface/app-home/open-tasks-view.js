@@ -21,11 +21,27 @@ module.exports = (openTasks) => {
     return homeTab.buildToJSON();
   }
 
+  /*
+    Block kit Options have a maximum length of 10, and most people have more than 10 open tasks
+    at a given time, so we break the openTasks list into chunks of ten
+    and add them as multiple blocks.
+  */
+  const tasksInputsArray = [];
+  let holdingArray = [];
+  let start = 0;
+  const end = openTasks.length;
+  const maxOptionsLength = 10;
+
+  for (start, end; start < end; start += maxOptionsLength) {
+    holdingArray = openTasks.slice(start, start + maxOptionsLength);
+    tasksInputsArray.push(
+      Input({ label: ' ', blockId: `open-task-status-change-${start}` }).dispatchAction().element(Elements.Checkboxes({ actionId: 'openTaskListHome' }).options(holdingArray.map((task) => Bits.Option({ text: task.title, value: `open-task-${task.id}` })))),
+    );
+  }
   homeTab.blocks(
     Header({ text: `You have ${openTasks.length} open ${pluralize('task', openTasks.length)}` }),
     Divider(),
-    // Open Tasks
-    Input({ label: ' ', blockId: 'open-task-status-change' }).dispatchAction().element(Elements.Checkboxes({ actionId: 'openTaskListHome' }).options(openTasks.map((task) => Bits.Option({ text: task.title, value: `open-task-${task.id}` })))),
+    tasksInputsArray,
   );
 
   return homeTab.buildToJSON();
