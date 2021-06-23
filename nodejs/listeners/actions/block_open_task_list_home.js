@@ -6,12 +6,8 @@ module.exports = (app) => {
     ack, action, client, body,
   }) => {
     await ack();
-    const tasksToUpdate = [];
     if (action.selected_options.length > 0) {
-      action.selected_options.forEach(async (option) => {
-        const taskID = option.value.split('-')[2];
-        tasksToUpdate.push(taskID);
-      });
+      const tasksToUpdate = action.selected_options.map((option) => option.value.split('-')[2]);
       Task.update({ status: 'CLOSED' }, { where: { id: tasksToUpdate } });
     }
     await reloadAppHome(client, body.user.id, body.team.id);
