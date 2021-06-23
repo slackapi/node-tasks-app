@@ -1,8 +1,11 @@
 const { User, Task } = require('../../models');
 const { modals } = require('../../user-interface');
+const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
-  app.view('new-task-modal', async ({ ack, view, body }) => {
+  app.view('new-task-modal', async ({
+    ack, view, body, client,
+  }) => {
     try {
       const queryResult = await User.findOrCreate({
         where: {
@@ -26,6 +29,7 @@ module.exports = (app) => {
           view: modals.taskCreated(view.state.values.taskTitle.taskTitle.value),
         },
       );
+      await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {
       await ack(
         {
