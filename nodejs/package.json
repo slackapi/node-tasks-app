@@ -25,6 +25,7 @@
     "dotenv": "^10.0.0",
     "eslint-plugin-jest": "^24.3.6",
     "luxon": "^1.27.0",
+    "pluralize": "^8.0.0",
     "sequelize": "^6.6.2",
     "slack-block-builder": "^2.0.1",
     "sqlite3": "^5.0.2"

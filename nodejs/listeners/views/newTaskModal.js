@@ -2,9 +2,12 @@ const { DateTime } = require('luxon');
 
 const { User, Task } = require('../../models');
 const { modals } = require('../../user-interface');
+const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
-  app.view('new-task-modal', async ({ ack, view, body }) => {
+  app.view('new-task-modal', async ({
+    ack, view, body, client,
+  }) => {
     const providedValues = view.state.values;
 
     const taskTitle = providedValues.taskTitle.taskTitle.value;
@@ -50,6 +53,7 @@ module.exports = (app) => {
           view: modals.taskCreated(taskTitle),
         },
       );
+      await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {
       await ack(
         {
