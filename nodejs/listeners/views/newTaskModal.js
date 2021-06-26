@@ -12,21 +12,29 @@ module.exports = (app) => {
 
     const taskTitle = providedValues.taskTitle.taskTitle.value;
 
-    const taskDueDate = DateTime.fromISO(providedValues.taskDueDate.taskDueDate.selected_date).endOf('day');
+    const selectedDate = providedValues.taskDueDate.taskDueDate.selected_date;
 
-    const diffInDays = taskDueDate.diffNow('days').toObject().days;
+    const task = {
+      title: taskTitle,
+    };
 
-    // Task due date is in the past, so reject
-    if (diffInDays < 0) {
-      await ack(
-        {
-          response_action: 'errors',
-          errors: {
-            taskDueDate: 'Please select a due date in the future',
+    if (selectedDate) {
+      const taskDueDate = DateTime.fromISO(providedValues.taskDueDate.taskDueDate.selected_date).endOf('day');
+
+      const diffInDays = taskDueDate.diffNow('days').toObject().days;
+      // Task due date is in the past, so reject
+      if (diffInDays < 0) {
+        await ack(
+          {
+            response_action: 'errors',
+            errors: {
+              taskDueDate: 'Please select a due date in the future',
+            },
           },
-        },
-      );
-      return;
+        );
+        return;
+      }
+      task.dueDate = taskDueDate;
     }
 
     try {
@@ -41,10 +49,7 @@ module.exports = (app) => {
       });
       const user = queryResult[0];
 
-      user.createTask({
-        title: taskTitle,
-        dueDate: taskDueDate,
-      });
+      user.createTask(task);
 
       await user.save();
       await ack(
