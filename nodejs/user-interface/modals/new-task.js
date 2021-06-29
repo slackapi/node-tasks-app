@@ -13,4 +13,9 @@ module.exports = () => Modal({ title: 'Create new task', submit: 'Create', callb
         actionId: 'taskDueDate',
       }),
     ),
+    Blocks.Input({ label: 'Time', blockId: 'taskDueTime', optional: true }).element(
+      Elements.TimePicker({
+        actionId: 'taskDueTime',
+      }),
+    ),
   ).buildToJSON();

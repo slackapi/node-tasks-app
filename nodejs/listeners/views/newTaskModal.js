@@ -13,14 +13,25 @@ module.exports = (app) => {
     const taskTitle = providedValues.taskTitle.taskTitle.value;
 
     const selectedDate = providedValues.taskDueDate.taskDueDate.selected_date;
+    const selectedTime = providedValues.taskDueTime.taskDueTime.selected_time;
 
     const task = {
       title: taskTitle,
     };
 
     if (selectedDate) {
-      const taskDueDate = DateTime.fromISO(providedValues.taskDueDate.taskDueDate.selected_date).endOf('day');
-
+      if (!selectedTime) {
+        await ack(
+          {
+            response_action: 'errors',
+            errors: {
+              taskDueTime: 'Please set a time for the date you\'ve chosen',
+            },
+          },
+        );
+        return;
+      }
+      const taskDueDate = DateTime.fromISO(`${selectedDate}T${selectedTime}`);
       const diffInDays = taskDueDate.diffNow('days').toObject().days;
       // Task due date is in the past, so reject
       if (diffInDays < 0) {
@@ -35,6 +46,23 @@ module.exports = (app) => {
         return;
       }
       task.dueDate = taskDueDate;
+      // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
+      // so if the date is further than that, don't set a reminder, and let the user know.
+      if (diffInDays < 120) {
+        await client.chat.scheduleMessage({
+          text: `Reminder: ${taskTitle} is due!`,
+          channel: body.user.id,
+          post_at: taskDueDate.toSeconds(), // TODO Figure out timezones
+        }).then((response) => {
+          task.scheduledMessageId = response.scheduled_message_id;
+        });
+      } else {
+        // TODO better error message
+        await client.chat.postMessage({
+          text: `Sorry, but we couldn't set a reminder for ${taskTitle}, as it's more than 120 days from now`,
+          channel: body.user.id,
+        });
+      }
     }
 
     try {

@@ -41,6 +41,21 @@ test('Returns blocks for the new task modal', () => {
         },
         type: 'input',
       },
+      // The timepicker is currently in beta and cannot be used in an App
+      // that is listed in the App Directory
+      {
+        label: {
+          type: 'plain_text',
+          text: 'Time',
+        },
+        block_id: 'taskDueTime',
+        optional: true,
+        element: {
+          action_id: 'taskDueTime',
+          type: 'timepicker',
+        },
+        type: 'input',
+      },
     ],
     type: 'modal',
   };
