@@ -13,4 +13,9 @@ module.exports = () => Modal({ title: 'Create new task', submit: 'Create', callb
         actionId: 'taskDueDate',
       }),
     ),
+    Blocks.Input({ label: 'Assign user', blockId: 'taskAssignUser'}).element(
+      Elements.UserSelect({
+        actionId: 'taskAssignUser',
+      }),
+    ),
   ).buildToJSON();
