@@ -47,8 +47,6 @@ module.exports = (app) => {
         return;
       }
       task.dueDate = taskDueDate;
-      // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
-      // so if the date is further than that, don't set a reminder, and let the user know.
     }
 
     try {
@@ -66,6 +64,8 @@ module.exports = (app) => {
       const storedTask = await user.createTask(task);
       if (storedTask.dueDate) {
         const dateObject = DateTime.fromJSDate(storedTask.dueDate);
+        // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
+        // so if the date is further than that, don't set a reminder, and let the user know.
         if (dateObject.diffNow('days').toObject().days < 120) {
           await client.chat.scheduleMessage(
             taskReminder(
