@@ -21,5 +21,10 @@ module.exports = (prefilledTitle) => {
       Blocks.Input({ label: 'New task', blockId: 'taskTitle' }).element(
         textInput(prefilledTitle),
       ),
+      Blocks.Input({ label: 'Due date', blockId: 'taskDueDate', optional: true }).element(
+        Elements.DatePicker({
+          actionId: 'taskDueDate',
+        }),
+      ),
     ).buildToJSON();
 };

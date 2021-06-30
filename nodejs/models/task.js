@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       values: ['OPEN', 'CLOSED'],
       defaultValue: 'OPEN',
     },
+    dueDate: DataTypes.DATE,
   },
   {
     sequelize,
