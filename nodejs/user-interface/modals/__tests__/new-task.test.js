@@ -15,7 +15,7 @@ test('Returns blocks for the new task modal if no prefill is provided', () => {
       {
         label: {
           type: 'plain_text',
-          text: 'Title',
+          text: 'New task',
         },
         block_id: 'taskTitle',
         element: {
@@ -74,6 +74,19 @@ test('Returns blocks for the new task modal if a prefill is provided', () => {
           action_id: 'taskTitle',
           initial_value: `${taskTitle}`,
           type: 'plain_text_input',
+        },
+        type: 'input',
+      },
+      {
+        label: {
+          type: 'plain_text',
+          text: 'Due date',
+        },
+        block_id: 'taskDueDate',
+        optional: true,
+        element: {
+          action_id: 'taskDueDate',
+          type: 'datepicker',
         },
         type: 'input',
       },
