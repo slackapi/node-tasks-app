@@ -4,5 +4,4 @@ const messages = require('./messages');
 
 exports.modals = modals;
 exports.appHome = appHome;
-exports.messages = modals;
-
+exports.messages = messages;
