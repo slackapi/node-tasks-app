@@ -37,6 +37,9 @@ module.exports = async (client, slackUserID, slackWorkspaceID, navTab) => {
       where: {
         status: 'OPEN',
       },
+      order: [
+        ['dueDate', 'ASC'],
+      ],
     });
 
     await client.views.publish({
