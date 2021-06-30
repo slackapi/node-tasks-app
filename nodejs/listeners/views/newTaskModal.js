@@ -2,6 +2,7 @@ const { DateTime } = require('luxon');
 
 const { User, Task } = require('../../models');
 const { modals } = require('../../user-interface');
+const { taskReminder } = require('../../user-interface/messages');
 const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
@@ -49,11 +50,15 @@ module.exports = (app) => {
       // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
       // so if the date is further than that, don't set a reminder, and let the user know.
       if (diffInDays < 120) {
-        await client.chat.scheduleMessage({
-          text: `Reminder: ${taskTitle} is due!`,
-          channel: body.user.id,
-          post_at: taskDueDate.toSeconds(), // TODO Figure out timezones
-        }).then((response) => {
+        await client.chat.scheduleMessage(
+          taskReminder(
+            taskDueDate.toSeconds(),
+            body.user.id,
+            taskTitle,
+            taskDueDate.toRelativeCalendar(),
+            task.id,
+          ),
+        ).then((response) => {
           task.scheduledMessageId = response.scheduled_message_id;
         });
       } else {
