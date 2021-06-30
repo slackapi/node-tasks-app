@@ -49,25 +49,6 @@ module.exports = (app) => {
       task.dueDate = taskDueDate;
       // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
       // so if the date is further than that, don't set a reminder, and let the user know.
-      if (diffInDays < 120) {
-        await client.chat.scheduleMessage(
-          taskReminder(
-            taskDueDate.toSeconds(),
-            body.user.id,
-            taskTitle,
-            taskDueDate.toRelativeCalendar(),
-            task.id,
-          ),
-        ).then((response) => {
-          task.scheduledMessageId = response.scheduled_message_id;
-        });
-      } else {
-        // TODO better error message
-        await client.chat.postMessage({
-          text: `Sorry, but we couldn't set a reminder for ${taskTitle}, as it's more than 120 days from now`,
-          channel: body.user.id,
-        });
-      }
     }
 
     try {
@@ -82,9 +63,32 @@ module.exports = (app) => {
       });
       const user = queryResult[0];
 
-      user.createTask(task);
-
+      const storedTask = await user.createTask(task);
+      if (storedTask.dueDate) {
+        const dateObject = DateTime.fromJSDate(storedTask.dueDate);
+        if (dateObject.diffNow('days').toObject().days < 120) {
+          await client.chat.scheduleMessage(
+            taskReminder(
+              dateObject.toSeconds(),
+              body.user.id,
+              storedTask.title,
+              dateObject.toRelativeCalendar(),
+              storedTask.id,
+            ),
+          ).then((response) => {
+            storedTask.scheduledMessageId = response.scheduled_message_id;
+            storedTask.save();
+          });
+        } else {
+          // TODO better error message
+          await client.chat.postMessage({
+            text: `Sorry, but we couldn't set a reminder for ${taskTitle}, as it's more than 120 days from now`,
+            channel: body.user.id,
+          });
+        }
+      }
       await user.save();
+
       await ack(
         {
           response_action: 'update',

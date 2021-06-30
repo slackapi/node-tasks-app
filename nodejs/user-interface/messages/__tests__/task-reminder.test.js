@@ -1,6 +1,6 @@
 const { taskReminder } = require('../index');
 
-test('Returns blocks for the task created modal', () => {
+test('Returns payload for the task reminder API call', () => {
   const taskTitle = 'Test Task';
   const channel = 'C1234567';
   const postAt = 123456789;
@@ -22,7 +22,7 @@ test('Returns blocks for the task created modal', () => {
             text: 'Mark as done',
           },
           value: `task-${taskID}`,
-          action_id: 'complete-from-reminder-message',
+          action_id: 'button-mark-as-done',
           type: 'button',
         },
         type: 'section',
@@ -38,5 +38,6 @@ test('Returns blocks for the task created modal', () => {
       },
     ],
   };
-  expect(taskReminder(postAt, channel, taskTitle, dueDate, taskID)).toBe(JSON.stringify(expected));
+  expect(taskReminder(postAt, channel, taskTitle, dueDate, taskID))
+    .toEqual(expected);
 });
