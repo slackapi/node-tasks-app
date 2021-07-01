@@ -26,5 +26,10 @@ module.exports = (prefilledTitle) => {
           actionId: 'taskDueDate',
         }),
       ),
+      Blocks.Input({ label: 'Time', blockId: 'taskDueTime', optional: true }).element(
+        Elements.TimePicker({
+          actionId: 'taskDueTime',
+        }),
+      ),
     ).buildToJSON();
 };

@@ -6,7 +6,7 @@ display_information:
 features:
   app_home:
     home_tab_enabled: true
-    messages_tab_enabled: false
+    messages_tab_enabled: true
     messages_tab_read_only_enabled: true
   bot_user:
     display_name: Tasks
@@ -23,7 +23,10 @@ features:
 oauth_config:
   scopes:
     bot:
+      # Allows us to add the shortcuts for creating tasks
       - commands
+      # Allows us to send task reminders via a DM from the bot
+      - chat:write
 settings:
   event_subscriptions:
     bot_events:
