@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'OPEN',
     },
     dueDate: DataTypes.DATE,
+    scheduledMessageId: DataTypes.STRING,
   },
   {
     sequelize,

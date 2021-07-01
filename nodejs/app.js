@@ -31,6 +31,7 @@ actionsListener.blockCreateATaskAppHome(app);
 actionsListener.blockAppHomeNavOpen(app);
 actionsListener.blockAppHomeNavCompleted(app);
 actionsListener.blockReopenTask(app);
+actionsListener.blockButtonMarkAsDone(app);
 
 (async () => {
   try {
