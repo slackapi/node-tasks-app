@@ -6,13 +6,15 @@ const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
   app.view('new-task-modal', async ({
-    ack, view, body, client,
+    ack, view, body, client
   }) => {
     const providedValues = view.state.values;
 
     const taskTitle = providedValues.taskTitle.taskTitle.value;
 
     const selectedDate = providedValues.taskDueDate.taskDueDate.selected_date;
+
+    const selectedUser = providedValues.taskAssignUser.taskAssignUser.selected_user;
 
     const task = {
       title: taskTitle,
@@ -58,6 +60,25 @@ module.exports = (app) => {
           view: modals.taskCreated(taskTitle),
         },
       );
+
+      const result = await client.conversations.open({
+        users: selectedUser,
+      });
+      console.log()
+
+      if(selectedUser == body.user.id){
+        await client.chat.postMessage({
+          channel:result.channel.id,
+          text: `You created a new task:\n- *${taskTitle}*`
+        });
+      }else{
+        await client.chat.postMessage({
+          channel:result.channel.id,
+          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`
+        });
+      }
+
+      // change the user varialbe here?
       await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {
       await ack(
