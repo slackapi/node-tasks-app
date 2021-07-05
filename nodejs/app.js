@@ -21,6 +21,7 @@ const app = new App({
 });
 
 shortcutsListener.globalNewTask(app);
+shortcutsListener.messageNewTask(app);
 
 viewsListener.newTaskModal(app);
 
