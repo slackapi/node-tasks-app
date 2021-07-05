@@ -21,6 +21,7 @@ const app = new App({
 });
 
 shortcutsListener.globalNewTask(app);
+shortcutsListener.messageNewTask(app);
 
 viewsListener.newTaskModal(app);
 
@@ -31,6 +32,7 @@ actionsListener.blockCreateATaskAppHome(app);
 actionsListener.blockAppHomeNavOpen(app);
 actionsListener.blockAppHomeNavCompleted(app);
 actionsListener.blockReopenTask(app);
+actionsListener.blockButtonMarkAsDone(app);
 
 (async () => {
   try {

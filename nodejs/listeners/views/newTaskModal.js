@@ -2,6 +2,7 @@ const { DateTime } = require('luxon');
 
 const { User, Task } = require('../../models');
 const { modals } = require('../../user-interface');
+const { taskReminder } = require('../../user-interface/messages');
 const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
@@ -13,6 +14,7 @@ module.exports = (app) => {
     const taskTitle = providedValues.taskTitle.taskTitle.value;
 
     const selectedDate = providedValues.taskDueDate.taskDueDate.selected_date;
+    const selectedTime = providedValues.taskDueTime.taskDueTime.selected_time;
 
     const selectedUser = providedValues.taskAssignUser.taskAssignUser.selected_user;
 
@@ -21,8 +23,18 @@ module.exports = (app) => {
     };
 
     if (selectedDate) {
-      const taskDueDate = DateTime.fromISO(providedValues.taskDueDate.taskDueDate.selected_date).endOf('day');
-
+      if (!selectedTime) {
+        await ack(
+          {
+            response_action: 'errors',
+            errors: {
+              taskDueTime: 'Please set a time for the date you\'ve chosen',
+            },
+          },
+        );
+        return;
+      }
+      const taskDueDate = DateTime.fromISO(`${selectedDate}T${selectedTime}`);
       const diffInDays = taskDueDate.diffNow('days').toObject().days;
       // Task due date is in the past, so reject
       if (diffInDays < 0) {
@@ -51,9 +63,34 @@ module.exports = (app) => {
       });
       const user = queryResult[0];
 
-      user.createTask(task);
-
+      const storedTask = await user.createTask(task);
+      if (storedTask.dueDate) {
+        const dateObject = DateTime.fromJSDate(storedTask.dueDate);
+        // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
+        // so if the date is further than that, don't set a reminder, and let the user know.
+        if (dateObject.diffNow('days').toObject().days < 120) {
+          await client.chat.scheduleMessage(
+            taskReminder(
+              dateObject.toSeconds(),
+              body.user.id,
+              storedTask.title,
+              dateObject.toRelativeCalendar(),
+              storedTask.id,
+            ),
+          ).then((response) => {
+            storedTask.scheduledMessageId = response.scheduled_message_id;
+            storedTask.save();
+          });
+        } else {
+          // TODO better error message
+          await client.chat.postMessage({
+            text: `Sorry, but we couldn't set a reminder for ${taskTitle}, as it's more than 120 days from now`,
+            channel: body.user.id,
+          });
+        }
+      }
       await user.save();
+
       await ack(
         {
           response_action: 'update',

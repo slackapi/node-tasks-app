@@ -1,5 +1,4 @@
-const { Task } = require('../../models');
-const { reloadAppHome } = require('../../utilities');
+const { reloadAppHome, completeTasks } = require('../../utilities');
 
 module.exports = (app) => {
   app.action({ action_id: 'blockOpenTaskCheckboxClicked', type: 'block_actions' }, async ({
@@ -8,7 +7,7 @@ module.exports = (app) => {
     await ack();
     if (action.selected_options.length > 0) {
       const tasksToUpdate = action.selected_options.map((option) => option.value.split('-')[2]);
-      Task.update({ status: 'CLOSED' }, { where: { id: tasksToUpdate } });
+      await completeTasks(tasksToUpdate, body.user.id, client);
     }
     await reloadAppHome(client, body.user.id, body.team.id);
   });
