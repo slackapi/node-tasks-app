@@ -1,0 +1,18 @@
+_metadata:
+  major_version: 1
+  minor_version: 1
+display_information:
+  name: Tasks
+features:
+  app_home:
+    messages_tab_read_only_enabled: true
+  bot_user:
+    display_name: Tasks
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      # Allows us to add the shortcuts for creating tasks
+      - commands
+settings:
+  socket_mode_enabled: true

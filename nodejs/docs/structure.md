@@ -1,5 +1,9 @@
 # Project structure
 
+## `manifest.yml`
+
+`manifest.yml` is a YAML-formatted configurations bundle for Slack apps. With a manifest, you can create an app with a pre-defined configuration, or adjust the configuration of an existing app.
+
 ## `app.js`
 
 `app.js` is the entry point for the application and is the file you'll run using `node` to start the server. The project aims to keep this file as thin as possible, primarily using it as a way to route inbound requests.
