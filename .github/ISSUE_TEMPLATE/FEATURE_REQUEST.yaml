@@ -21,8 +21,7 @@ body:
   attributes:
     label: Feature as a user story
     description: |
-      examples:
-        - **As a** user, **I want to** view my task list, **So that I can** know what tasks I have outstanding
+      **Example**: **As a** user, **I want to** view my task list, **So that I can** know what tasks I have outstanding
     render: markdown
   validations:
     required: true
