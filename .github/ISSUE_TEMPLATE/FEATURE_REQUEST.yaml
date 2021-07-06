@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest an idea for this project
+title: "[FEATURE] <title>"
+labels: [enhancement, Needs Triage]
+body:
+- type: checkboxes
+  attributes:
+    label: Is there an existing request for this?
+    description: Please search to see if an issue already exists for the feature you're requesting.
+    options:
+    - label: I have searched for any related issues and avoided creating a duplicate issue.
+      required: true
+- type: checkboxes
+  attributes:
+    label: Have you read our code of conduct?
+    description: All contributors must agree to our code of conduct, which you can find at https://slackhq.github.io/code-of-conduct
+    options:
+    - label: I have read and agree to the code of conduct
+      required: true
+- type: textarea
+  attributes:
+    label: Current Behavior
+    description: A concise description of what you're experiencing.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A concise description of what you expected to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Environment
+    description: |
+      examples:
+        - **As a** user, **I want to** view my task list, **So that I can** know what tasks I have outstanding
+    render: markdown
+  validations:
+    required: true
