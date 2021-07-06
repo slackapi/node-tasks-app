@@ -22,7 +22,7 @@ body:
     label: Current Behavior
     description: A concise description of what you're experiencing.
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Expected Behavior
@@ -40,23 +40,13 @@ body:
       4. See error...
   validations:
     required: true
-- type: dropdown
-  id: download
-  attributes:
-    label: Which language are you using to reproduce this issue?
-    options:
-      - Node
-      - Python
-      - Java
-  validations:
-    required: true
 - type: textarea
   attributes:
     label: Environment
     description: |
       examples:
         - **OS**: Ubuntu 20.04
-        - **Language version**: 13.14.0
+        - **Language version**: Node 13.14.0
     value: |
         - OS: 
         - Language version: 
