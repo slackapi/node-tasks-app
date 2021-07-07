@@ -97,24 +97,12 @@ module.exports = (app) => {
           view: modals.taskCreated(taskTitle),
         },
       );
-     // open DM with selected user   
-      const result = await client.conversations.open({
-        users: selectedUser,
-      });
-     // dynamic API call to send DM 
-      const sendMessage = async(text) => {
+      if (selectedUser != body.user.id) {
         client.chat.postMessage({
-          channel:result.channel.id,
-          text
+          channel: selectedUser,
+          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`
         });
-      } 
-      //conditional to determine which message is sent
-      if(selectedUser === body.user.id){
-        await sendMessage(`You created a new task:\n- *${taskTitle}*`)
-      }else {
-        await sendMessage(`<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`)
-      };
-
+      }
      
       await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {

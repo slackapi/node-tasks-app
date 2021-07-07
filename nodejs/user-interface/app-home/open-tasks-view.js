@@ -54,5 +54,6 @@ module.exports = (openTasks) => {
     tasksInputsArray,
   );
 
+  console.log(homeTab.printPreviewUrl());
   return homeTab.buildToJSON();
 };
