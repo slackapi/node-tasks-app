@@ -7,7 +7,7 @@ const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
   app.view('new-task-modal', async ({
-    ack, view, body, client
+    ack, view, body, client,
   }) => {
     const providedValues = view.state.values;
 
@@ -20,6 +20,7 @@ module.exports = (app) => {
 
     const task = {
       title: taskTitle,
+      currentAssignee: selectedUser,
     };
 
     if (selectedDate) {
@@ -58,12 +59,20 @@ module.exports = (app) => {
           slackWorkspaceID: body.team.id,
         },
         include: [
-          Task,
+          {
+            model: Task,
+            as: 'createdTasks',
+          },
+          {
+            model: Task,
+            as: 'assignedTasks',
+          },
         ],
       });
       const user = queryResult[0];
 
-      const storedTask = await user.createTask(task);
+      console.log(task);
+      const storedTask = await user.createCreatedTask(task);
       if (storedTask.dueDate) {
         const dateObject = DateTime.fromJSDate(storedTask.dueDate);
         // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
@@ -100,10 +109,10 @@ module.exports = (app) => {
       if (selectedUser != body.user.id) {
         client.chat.postMessage({
           channel: selectedUser,
-          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`
+          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`,
         });
       }
-     
+
       await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {
       await ack(
