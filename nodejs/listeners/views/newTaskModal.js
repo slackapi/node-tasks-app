@@ -20,7 +20,6 @@ module.exports = (app) => {
 
     const task = {
       title: taskTitle,
-      currentAssignee: selectedUser,
     };
 
     if (selectedDate) {
@@ -71,8 +70,25 @@ module.exports = (app) => {
       });
       const user = queryResult[0];
 
-      console.log(task);
       const storedTask = await user.createCreatedTask(task);
+      const querySelectedUser = await User.findOrCreate({
+        where: {
+          slackUserID: selectedUser,
+          slackWorkspaceID: body.team.id, // TODO better compatibility with Slack Connect.
+        },
+        include: [
+          {
+            model: Task,
+            as: 'createdTasks',
+          },
+          {
+            model: Task,
+            as: 'assignedTasks',
+          },
+        ],
+      });
+      const selectedUserObject = querySelectedUser[0];
+      storedTask.setCurrentAssignee(selectedUserObject);
       if (storedTask.dueDate) {
         const dateObject = DateTime.fromJSDate(storedTask.dueDate);
         // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
