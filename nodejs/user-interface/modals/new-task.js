@@ -9,7 +9,6 @@ module.exports = (prefilledTitle) => {
         initialValue: taskTitle,
       });
     }
-
     return Elements.TextInput({
       placeholder: 'Do this thing',
       actionId: 'taskTitle',
@@ -21,6 +20,11 @@ module.exports = (prefilledTitle) => {
       Blocks.Input({ label: 'New task', blockId: 'taskTitle' }).element(
         textInput(prefilledTitle),
       ),
+      Blocks.Input({ label: 'Assign user', blockId: 'taskAssignUser', optional: true }).element(
+        Elements.UserSelect({
+          actionId: 'taskAssignUser',
+        })
+      ),
       Blocks.Input({ label: 'Due date', blockId: 'taskDueDate', optional: true }).element(
         Elements.DatePicker({
           actionId: 'taskDueDate',
@@ -31,10 +35,12 @@ module.exports = (prefilledTitle) => {
           actionId: 'taskDueTime',
         }),
       ),
-      Blocks.Input({ label: 'Assign user', blockId: 'taskAssignUser'}).element(
-        Elements.UserSelect({
-          actionId: 'taskAssignUser',
-        }),
-      ),
+      Blocks.Input({ label: 'Notes', blockId: 'taskNotes', optional: true }).element(
+        Elements.TextInput({
+          actionId: 'taskNotes',
+          maxLength: 300,
+        })
+          .multiline(true),
+      ), 
     ).buildToJSON();
 };

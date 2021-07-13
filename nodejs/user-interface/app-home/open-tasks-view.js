@@ -1,5 +1,5 @@
 const {
-  HomeTab, Header, Divider, Section, Actions, Elements, Input, Bits,
+  HomeTab, Header, Divider, Section, Actions, Elements, Input, Bits
 } = require('slack-block-builder');
 const pluralize = require('pluralize');
 const { DateTime } = require('luxon');
@@ -33,6 +33,22 @@ module.exports = (openTasks) => {
   const end = openTasks.length;
   const maxOptionsLength = 10;
 
+  // for (start, end; start < end; start += maxOptionsLength) {
+  //   holdingArray = openTasks.slice(start, start + maxOptionsLength);
+  //   tasksInputsArray.push(
+  //     Input({ label: ' ', blockId: `open-task-status-change-${start}` }).dispatchAction().element(Elements.Checkboxes({ actionId: 'blockOpenTaskCheckboxClicked' }).options(holdingArray.map((task) => {
+  //       const option = {
+  //         text: `*${task.title}*`,
+  //         value: `open-task-${task.id}`,
+  //       };
+  //       if (task.dueDate) {
+  //         option.description = `Due ${DateTime.fromJSDate(task.dueDate).toRelativeCalendar()}`;
+  //       }
+  //       return Bits.Option(option);
+  //     }))),
+  //   );
+  // }
+
   for (start, end; start < end; start += maxOptionsLength) {
     holdingArray = openTasks.slice(start, start + maxOptionsLength);
     tasksInputsArray.push(
@@ -41,13 +57,18 @@ module.exports = (openTasks) => {
           text: `*${task.title}*`,
           value: `open-task-${task.id}`,
         };
+        console.log(task)
         if (task.dueDate) {
-          option.description = `Due ${DateTime.fromJSDate(task.dueDate).toRelativeCalendar()}`;
+          option.description = `Due ${DateTime.fromJSDate(task.dueDate).toRelativeCalendar()}\n *Notes:* Some stuff.`;
         }
         return Bits.Option(option);
       }))),
     );
-  }
+  
+}
+
+
+
   homeTab.blocks(
     Header({ text: `You have ${openTasks.length} open ${pluralize('task', openTasks.length)}` }),
     Divider(),

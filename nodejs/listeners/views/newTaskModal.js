@@ -7,7 +7,7 @@ const { reloadAppHome } = require('../../utilities');
 
 module.exports = (app) => {
   app.view('new-task-modal', async ({
-    ack, view, body, client
+    ack, view, body, client,
   }) => {
     const providedValues = view.state.values;
 
@@ -97,13 +97,13 @@ module.exports = (app) => {
           view: modals.taskCreated(taskTitle),
         },
       );
-      if (selectedUser != body.user.id) {
+      if (selectedUser !== body.user.id) {
         client.chat.postMessage({
           channel: selectedUser,
-          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`
+          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`,
         });
       }
-     
+
       await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {
       await ack(

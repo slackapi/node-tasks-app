@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    //Maybe
-    //const User = sequelize.define('User', { name: DataTypes.STRING });
-    //User.belongsToMany(Task, { through: 'UserTasks' });
+    // Maybe
+    // const User = sequelize.define('User', { name: DataTypes.STRING });
+    // User.belongsToMany(Task, { through: 'UserTasks' });
     static associate(models) {
       User.hasMany(models.Task);
     }
