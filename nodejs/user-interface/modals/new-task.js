@@ -34,13 +34,6 @@ module.exports = (prefilledTitle) => {
         Elements.TimePicker({
           actionId: 'taskDueTime',
         }),
-      ),
-      Blocks.Input({ label: 'Notes', blockId: 'taskNotes', optional: true }).element(
-        Elements.TextInput({
-          actionId: 'taskNotes',
-          maxLength: 300,
-        })
-          .multiline(true),
       ), 
     ).buildToJSON();
 };
