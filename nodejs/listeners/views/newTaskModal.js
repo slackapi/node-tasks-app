@@ -108,10 +108,11 @@ module.exports = (app) => {
         },
       );
       if (selectedUser !== body.user.id) {
-        client.chat.postMessage({
+        await client.chat.postMessage({
           channel: selectedUser,
           text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`,
         });
+        await reloadAppHome(client, selectedUser, body.team.id);
       }
 
       await reloadAppHome(client, body.user.id, body.team.id);
