@@ -46,5 +46,5 @@ module.exports = {
         onDelete: 'SET NULL',
       },
     );
-  }
+  },
 };

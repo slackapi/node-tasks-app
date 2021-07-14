@@ -1,5 +1,5 @@
 const {
-  HomeTab, Header, Divider, Section, Actions, Elements, Input, Bits
+  HomeTab, Header, Divider, Section, Actions, Elements, Input, Bits,
 } = require('slack-block-builder');
 const pluralize = require('pluralize');
 const { DateTime } = require('luxon');
