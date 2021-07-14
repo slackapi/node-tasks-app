@@ -6,7 +6,7 @@ module.exports = (app) => {
       await ack();
       await client.views.open({
         trigger_id: shortcut.trigger_id,
-        view: modals.newTask(),
+        view: modals.newTask(null, shortcut.user.id),
       });
     } catch (error) {
       // eslint-disable-next-line no-console

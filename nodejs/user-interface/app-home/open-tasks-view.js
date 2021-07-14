@@ -53,6 +53,6 @@ module.exports = (openTasks) => {
     Divider(),
     tasksInputsArray,
   );
-  console.log(homeTab.printPreviewUrl());
+
   return homeTab.buildToJSON();
 };

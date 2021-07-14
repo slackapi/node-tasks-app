@@ -1,6 +1,7 @@
 const { newTask } = require('../index');
 
 test('Returns blocks for the new task modal if no prefill is provided', () => {
+  const testUserID = 'U123456';
   const expected = {
     title: {
       type: 'plain_text',
@@ -25,6 +26,19 @@ test('Returns blocks for the new task modal if no prefill is provided', () => {
           },
           action_id: 'taskTitle',
           type: 'plain_text_input',
+        },
+        type: 'input',
+      },
+      {
+        label: {
+          type: 'plain_text',
+          text: 'Assign user',
+        },
+        block_id: 'taskAssignUser',
+        element: {
+          action_id: 'taskAssignUser',
+          initial_user: `${testUserID}`,
+          type: 'users_select',
         },
         type: 'input',
       },
@@ -59,11 +73,13 @@ test('Returns blocks for the new task modal if no prefill is provided', () => {
     ],
     type: 'modal',
   };
-  expect(newTask()).toBe(JSON.stringify(expected));
+  expect(newTask(null, testUserID)).toBe(JSON.stringify(expected));
 });
 
 test('Returns blocks for the new task modal if a prefill is provided', () => {
   const taskTitle = 'This is a task';
+  const testUserID = 'U123456';
+
   const expected = {
     title: {
       type: 'plain_text',
@@ -95,6 +111,19 @@ test('Returns blocks for the new task modal if a prefill is provided', () => {
       {
         label: {
           type: 'plain_text',
+          text: 'Assign user',
+        },
+        block_id: 'taskAssignUser',
+        element: {
+          action_id: 'taskAssignUser',
+          initial_user: `${testUserID}`,
+          type: 'users_select',
+        },
+        type: 'input',
+      },
+      {
+        label: {
+          type: 'plain_text',
           text: 'Due date',
         },
         block_id: 'taskDueDate',
@@ -123,5 +152,5 @@ test('Returns blocks for the new task modal if a prefill is provided', () => {
     ],
     type: 'modal',
   };
-  expect(newTask(taskTitle)).toBe(JSON.stringify(expected));
+  expect(newTask(taskTitle, testUserID)).toBe(JSON.stringify(expected));
 });
