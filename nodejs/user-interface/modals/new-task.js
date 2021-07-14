@@ -1,4 +1,6 @@
 const { Modal, Blocks, Elements } = require('slack-block-builder');
+// Need to import user id to set as `initialUser` or `initialConversation`
+//const { User} = require('../models'); 
 
 module.exports = (prefilledTitle) => {
   const textInput = (taskTitle) => {
@@ -23,8 +25,18 @@ module.exports = (prefilledTitle) => {
       Blocks.Input({ label: 'Assign user', blockId: 'taskAssignUser', optional: true }).element(
         Elements.UserSelect({
           actionId: 'taskAssignUser',
-        })
+        }),
+        //.initialUser(User.)
       ),
+      //OR
+      // Instead of a select user element we use a conversations element so that we can set filter out bot users something like:
+      // Blocks.Input({ label: 'Assign user', blockId: 'taskAssignUser', optional: true }).element(
+      //   Elements.ConversationSelect({
+      //     actionId: 'taskAssignUser',
+      //   }) 
+      //   .filter(['im'])
+      //   .excludeBotUsers(true) //breaks app
+      // ),
       Blocks.Input({ label: 'Due date', blockId: 'taskDueDate', optional: true }).element(
         Elements.DatePicker({
           actionId: 'taskDueDate',
