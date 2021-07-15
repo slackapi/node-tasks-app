@@ -12,6 +12,6 @@ Much functionality is currently unavailable. `main` is considered stable, so you
 
 This repository contains the Tasks App implemented in the *three* languages supported by our [Bolt Framework](https://api.slack.com/tools/bolt). For more details on each implementation, checkout the README.md in the respective folder
 
-- [Python](./python/README.md)
-- [Node.js](./nodejs/README.md)
-- [Java](./java/README.md)
+- [Python](./python)
+- [Node.js](./nodejs)
+- [Java](./java)
