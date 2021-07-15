@@ -15,7 +15,3 @@ This repository contains the Tasks App implemented in the *three* languages supp
 - [Python](./python)
 - [Node.js](./nodejs)
 - [Java](./java)
-
-### App Manifest
-
-The root of the repository also contains a `manifest.yml` file, which you can use to [configure your own instance](https://api.slack.com/apps/new) of the App.
