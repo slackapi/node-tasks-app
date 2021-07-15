@@ -21,6 +21,8 @@ Before you can run the app, you'll need to store some environment variables.
 
 `npm install`
 
+*NOTE*: By default, Tasks App installs `sqlite3`, but as mentioned above, you can use any system supported by [Sequelize](https://sequelize.org/), just `npm install` the relevant package, e.g. `npm install mysql2`
+
 **Run database migrations**
 `npx sequelize-cli db:migrate --url 'YOUR DATABASE URL'`
 
