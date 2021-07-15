@@ -1,6 +1,6 @@
 const { Modal, Blocks, Elements } = require('slack-block-builder');
 
-module.exports = (prefilledTitle) => {
+module.exports = (prefilledTitle, currentUser) => {
   const textInput = (taskTitle) => {
     if (taskTitle) {
       return Elements.TextInput({
@@ -9,7 +9,6 @@ module.exports = (prefilledTitle) => {
         initialValue: taskTitle,
       });
     }
-
     return Elements.TextInput({
       placeholder: 'Do this thing',
       actionId: 'taskTitle',
@@ -20,6 +19,11 @@ module.exports = (prefilledTitle) => {
     .blocks(
       Blocks.Input({ label: 'New task', blockId: 'taskTitle' }).element(
         textInput(prefilledTitle),
+      ),
+      Blocks.Input({ label: 'Assign user', blockId: 'taskAssignUser' }).element(
+        Elements.UserSelect({
+          actionId: 'taskAssignUser',
+        }).initialUser(currentUser),
       ),
       Blocks.Input({ label: 'Due date', blockId: 'taskDueDate', optional: true }).element(
         Elements.DatePicker({

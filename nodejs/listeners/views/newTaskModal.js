@@ -16,9 +16,9 @@ module.exports = (app) => {
     const selectedDate = providedValues.taskDueDate.taskDueDate.selected_date;
     const selectedTime = providedValues.taskDueTime.taskDueTime.selected_time;
 
-    const task = {
-      title: taskTitle,
-    };
+    const selectedUser = providedValues.taskAssignUser.taskAssignUser.selected_user;
+
+    const task = Task.build({ title: taskTitle });
 
     if (selectedDate) {
       if (!selectedTime) {
@@ -41,6 +41,7 @@ module.exports = (app) => {
             response_action: 'errors',
             errors: {
               taskDueDate: 'Please select a due date in the future',
+              taskDueTime: 'Please select a time in the future',
             },
           },
         );
@@ -50,51 +51,70 @@ module.exports = (app) => {
     }
 
     try {
+      // Grab the creating user from the DB
       const queryResult = await User.findOrCreate({
         where: {
           slackUserID: body.user.id,
           slackWorkspaceID: body.team.id,
         },
-        include: [
-          Task,
-        ],
       });
       const user = queryResult[0];
 
-      const storedTask = await user.createTask(task);
-      if (storedTask.dueDate) {
-        const dateObject = DateTime.fromJSDate(storedTask.dueDate);
+      // Grab the assignee user from the DB
+      const querySelectedUser = await User.findOrCreate({
+        where: {
+          slackUserID: selectedUser,
+          slackWorkspaceID: body.team.id, // TODO better compatibility with Slack Connect.
+        },
+      });
+      const selectedUserObject = querySelectedUser[0];
+
+      // Persist what we know about the task so far
+      await task.save();
+      await task.setCreator(user);
+      await task.setCurrentAssignee(selectedUserObject);
+
+      if (task.dueDate) {
+        const dateObject = DateTime.fromJSDate(task.dueDate);
         // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
         // so if the date is further than that, don't set a reminder, and let the user know.
+        const assignee = await task.getCurrentAssignee();
         if (dateObject.diffNow('days').toObject().days < 120) {
           await client.chat.scheduleMessage(
             taskReminder(
               dateObject.toSeconds(),
-              body.user.id,
-              storedTask.title,
+              assignee.slackUserID,
+              task.title,
               dateObject.toRelativeCalendar(),
-              storedTask.id,
+              task.id,
             ),
-          ).then((response) => {
-            storedTask.scheduledMessageId = response.scheduled_message_id;
-            storedTask.save();
+          ).then(async (response) => {
+            task.scheduledMessageId = response.scheduled_message_id;
+            await task.save();
           });
         } else {
-          // TODO better error message
+          // TODO better error message and store it in /user-interface
           await client.chat.postMessage({
             text: `Sorry, but we couldn't set a reminder for ${taskTitle}, as it's more than 120 days from now`,
-            channel: body.user.id,
+            channel: assignee.slackUserID,
           });
         }
       }
-      await user.save();
-
+      await task.save();
       await ack(
         {
           response_action: 'update',
           view: modals.taskCreated(taskTitle),
         },
       );
+      if (selectedUser !== body.user.id) {
+        await client.chat.postMessage({
+          channel: selectedUser,
+          text: `<@${body.user.id}> assigned you a new task:\n- *${taskTitle}*`,
+        });
+        await reloadAppHome(client, selectedUser, body.team.id);
+      }
+
       await reloadAppHome(client, body.user.id, body.team.id);
     } catch (error) {
       await ack(

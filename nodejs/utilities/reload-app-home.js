@@ -11,13 +11,20 @@ module.exports = async (client, slackUserID, slackWorkspaceID, navTab) => {
         slackWorkspaceID,
       },
       include: [
-        Task,
+        {
+          model: Task,
+          as: 'createdTasks',
+        },
+        {
+          model: Task,
+          as: 'assignedTasks',
+        },
       ],
     });
     const user = queryResult[0];
 
     if (navTab === 'completed') {
-      const recentlyCompletedTasks = await user.getTasks({
+      const recentlyCompletedTasks = await user.getAssignedTasks({
         where: {
           status: 'CLOSED',
           updatedAt: {
@@ -33,7 +40,7 @@ module.exports = async (client, slackUserID, slackWorkspaceID, navTab) => {
       return;
     }
 
-    const openTasks = await user.getTasks({
+    const openTasks = await user.getAssignedTasks({
       where: {
         status: 'OPEN',
       },
