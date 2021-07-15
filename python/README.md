@@ -14,7 +14,8 @@ Before you can run the app, you'll need to store two Slack tokens as environment
 
 1. Copy `.env.sample` to `.env`
 2. Open your apps configuration page from [this list](https://api.slack.com/apps), click *OAuth & Permissions* in the left hand menu, then copy the *Bot User OAuth Token* into your `.env` file under `SLACK_BOT_TOKEN`
-3. Click *Socket Mode* from the left hand menu, toggle the *Enable Socket Mode* option, and follow the steps to create an app-level token. Copy that token into your `.env` as `SLACK_APP_TOKEN`.
+3. Click *Basic Information* in the left hand menu, then scroll down to *App-Level Tokens* and click the *Generate Tokens and Scopes* button. Give the token a descriptive name, like `socket-mode`, and then click the *Add Scope* button and select `connections:write`. Finally, click the green *Generate* button to generate the app token. Copy that token into your `.env` as `SLACK_APP_TOKEN`. (The app token is required for Socket Mode, which allows you develop your app locally without needing to spin up a server. Learn more about how [Socket Mode works](https://api.slack.com/apis/connections/socket)!)
+3. Click *Socket Mode* from the left hand menu. If socket mode is not enabled, toggle the *Enable Socket Mode* option. 
 
 **Install Dependencies**
 
