@@ -8,6 +8,7 @@
 3. Copy the contents of [manifest.yml](../manifest.yml) into the text box that says `*Paste your manifest code here*` and click *Next*
 4. Review the configuration and click *Create*
 5. Now click *Install to Workspace* and *Allow* on the screen that follows. You'll be redirected to the App Configuration dashboard.
+6. The tasks app uses the Timepicker Block Kit element, which is currently in beta, so your app will need to opt-in to the time picker element beta. From the left nav, select *Beta Features*, then click the radio button next to *Time picker element*.
 
 **Environment variables**
 Before you can run the app, you'll need to store some environment variables.
@@ -24,7 +25,7 @@ Before you can run the app, you'll need to store some environment variables.
 *NOTE*: By default, Tasks App installs `sqlite3`, but as mentioned above, you can use any system supported by [Sequelize](https://sequelize.org/), just `npm install` the relevant package, e.g. `npm install mysql2`
 
 **Run database migrations**
-`npx sequelize-cli db:migrate --url 'YOUR DATABASE URL'`
+`npx sequelize-cli db:migrate`
 
 **Run Bolt Server**
 
