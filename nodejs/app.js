@@ -53,3 +53,6 @@ actionsListener.blockButtonMarkAsDone(app);
     process.exit(1);
   }
 })();
+
+// Expose app for testing
+export default app;

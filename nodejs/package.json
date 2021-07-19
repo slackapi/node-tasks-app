@@ -7,6 +7,9 @@
     "test": "jest",
     "lint": "eslint . --ext .js"
   },
+  "jest": {
+    "collectCoverage": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/slackapi/tasks-app.git"
