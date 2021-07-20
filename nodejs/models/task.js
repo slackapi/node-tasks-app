@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     dueDate: DataTypes.DATE,
     scheduledMessageId: DataTypes.STRING,
+    //maybe delete later?
+    notes: DataTypes.STRING,
   },
   {
     sequelize,

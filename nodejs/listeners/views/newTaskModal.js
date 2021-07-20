@@ -73,7 +73,7 @@ module.exports = (app) => {
       await task.save();
       await task.setCreator(user);
       await task.setCurrentAssignee(selectedUserObject);
-
+      
       if (task.dueDate) {
         const dateObject = DateTime.fromJSDate(task.dueDate);
         // The `chat.scheduleMessage` endpoint only accepts messages in the next 120 days,
