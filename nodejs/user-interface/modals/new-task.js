@@ -41,6 +41,6 @@ module.exports = (prefilledTitle, currentUser) => {
           maxLength: 300,
         })
           .multiline(true),
-      ), 
+      ),
     ).buildToJSON();
 };
