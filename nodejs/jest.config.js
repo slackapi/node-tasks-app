@@ -16,4 +16,6 @@ module.exports = {
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
 
+  // Set the environment variables to be used inside the test suite
+  setupFiles: ['<rootDir>/.jest/setEnvVars.js'],
 };
