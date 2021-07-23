@@ -1,14 +1,20 @@
-// const { tasksApp } = require('./app');
-const { App } = require('@slack/bolt');
+// const { tasksApp: newMockApp } = require('./app');
+const { App, ExpressReceiver } = require('@slack/bolt');
+
+const receiver = new ExpressReceiver({
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+});
 
 const newMockApp = () => {
   const app = new App({
-    token: process.env.SLACK_BOT_TOKEN,
     socketMode: true,
-    appToken: process.env.SLACK_APP_TOKEN,
+    receiver,
+    authorize: {
+      botToken: 'junk test token',
+      botId: 'junk bot id',
+      botUserId: 'junk bot user id',
+    },
   });
-
-  jest.spyOn(app.client.auth, 'test').mockImplementation();
 
   return app;
 };
@@ -22,7 +28,6 @@ beforeEach(() => {
 it('should pass the given token to app.client', async () => {
   // Assert some basics
   expect(app.client).toBeDefined();
-  expect(app.client.token).toEqual(process.env.SLACK_BOT_TOKEN);
 });
 
 exports.newMockApp = newMockApp;
