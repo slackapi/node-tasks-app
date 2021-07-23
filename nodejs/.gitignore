@@ -119,6 +119,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# jest envs with secrets
-setEnvVars.js

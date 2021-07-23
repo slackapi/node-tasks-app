@@ -32,17 +32,13 @@ switch (process.env.LOG_LEVEL) {
     logLevel = LogLevel.Info;
 }
 
-const tasksApp = (additionalProperties = {}) =>
-  new App({
-    token: process.env.SLACK_BOT_TOKEN,
-    socketMode: true,
-    appToken: process.env.SLACK_APP_TOKEN,
-    logLevel,
-    ...additionalProperties,
-  });
-
 // Initializes your app with your bot token and signing secret
-const app = tasksApp();
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  socketMode: true,
+  appToken: process.env.SLACK_APP_TOKEN,
+  logLevel,
+});
 
 shortcutsListener.globalNewTask(app);
 shortcutsListener.messageNewTask(app);
@@ -77,5 +73,3 @@ actionsListener.blockButtonMarkAsDone(app);
     process.exit(1);
   }
 })();
-
-exports.tasksApp = tasksApp;

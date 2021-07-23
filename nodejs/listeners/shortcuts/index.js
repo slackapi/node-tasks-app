@@ -1,5 +1,13 @@
-/* eslint-disable global-require */
+const { messageNewTaskCallback } = require('./message-new-task');
+const { globalNewTaskCallback } = require('./global-new-task');
+
+const messageNewTaskListener = (app) =>
+  app.shortcut('message_new_task', messageNewTaskCallback);
+
+const globalNewTaskListener = (app) =>
+  app.shortcut('global_new_task', globalNewTaskCallback);
+
 module.exports = {
-  globalNewTask: require('./global-new-task'),
-  messageNewTask: require('./message-new-task'),
+  globalNewTask: globalNewTaskListener,
+  messageNewTask: messageNewTaskListener,
 };
