@@ -1,4 +1,5 @@
 const { messageNewTaskCallback } = require('../message-new-task');
+const { modals } = require('../../../user-interface');
 
 it('handles the shortcut event and opens the newTask modal', async () => {
   const mockShortcutPayloadData = {
@@ -35,9 +36,6 @@ it('handles the shortcut event and opens the newTask modal', async () => {
       views: {
         open: jest.fn(),
       },
-      chat: {
-        postMessage: jest.fn(),
-      },
     },
   };
 
@@ -46,15 +44,13 @@ it('handles the shortcut event and opens the newTask modal', async () => {
 
   expect(mockShortcutCallbackInput.ack).toBeCalledTimes(1);
   expect(mockShortcutCallbackInput.client.views.open).toBeCalledTimes(1);
-
-  // fakeDB.client = createClient(addedCrafter)
-  // fakeDatabase(fakeDB.client);
-  // let response = await sendWelcomeDMMessage(channel, user);
-  // expect(response.called).toBe(true);
-
-  // addedCrafter.rows[0].crafter_slack_received_welcome_msg = true;
-  // fakeDB.client = createClient(addedCrafter)
-  // fakeDatabase(fakeDB.client);
-  // response = await sendWelcomeDMMessage(channel, user);
-  // expect(response.called).toBe(false);
+  expect(mockShortcutCallbackInput.client.views.open).toBeCalledWith(
+    expect.objectContaining({
+      trigger_id: mockShortcutPayloadData.trigger_id,
+      view: modals.newTask(
+        mockShortcutPayloadData.message.text,
+        mockShortcutPayloadData.user.id,
+      ),
+    }),
+  );
 });
