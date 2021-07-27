@@ -35,13 +35,11 @@ describe('app_home_opened event callback function test ', () => {
 
     await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
 
-    // const clientViewsPublishMockFunc =
-    //   mockAppHomeEventCallbackInput.client.views.publish;
+    const clientViewsPublishMockFunc =
+      mockAppHomeEventCallbackInput.client.views.publish;
 
-    expect(mockAppHomeEventCallbackInput.client.views.publish).toBeCalledTimes(
-      1,
-    );
-    expect(mockAppHomeEventCallbackInput.client.views.publish).toBeCalledWith(
+    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
+    expect(clientViewsPublishMockFunc).toBeCalledWith(
       expect.objectContaining({
         user_id: mockAppHomeOpenedEventNewUser.user,
         view: openTasksView([]),
@@ -76,13 +74,11 @@ describe('app_home_opened event callback function test ', () => {
     };
     await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
 
-    // const clientViewsPublishMockFunc =
-    //   mockAppHomeEventCallbackInput.client.views.publish;
+    const clientViewsPublishMockFunc =
+      mockAppHomeEventCallbackInput.client.views.publish;
 
-    expect(mockAppHomeEventCallbackInput.client.views.publish).toBeCalledTimes(
-      1,
-    );
-    expect(mockAppHomeEventCallbackInput.client.views.publish).toBeCalledWith(
+    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
+    expect(clientViewsPublishMockFunc).toBeCalledWith(
       expect.objectContaining({
         user_id: mockAppHomeOpenedEventNewUser.user,
         view: openTasksView([]),
@@ -126,13 +122,11 @@ describe('app_home_opened event callback function test ', () => {
     };
     await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
 
-    // const clientViewsPublishMockFunc =
-    //   mockAppHomeEventCallbackInput.client.views.publish;
+    const clientViewsPublishMockFunc =
+      mockAppHomeEventCallbackInput.client.views.publish;
 
-    expect(mockAppHomeEventCallbackInput.client.views.publish).toBeCalledTimes(
-      1,
-    );
-    expect(mockAppHomeEventCallbackInput.client.views.publish).toBeCalledWith(
+    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
+    expect(clientViewsPublishMockFunc).toBeCalledWith(
       expect.objectContaining({
         user_id: mockAppHomeOpenedEventNewUser.user,
         view: completedTasksView([]),
