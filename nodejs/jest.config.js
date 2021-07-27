@@ -18,4 +18,7 @@ module.exports = {
 
   // Ignores the utility functions folder
   testPathIgnorePatterns: ['/__fixtures__/', '/__utils__/'],
+
+  // Global setup configuration
+  setupFilesAfterEnv: ['<rootDir>/.jest/setup.js'],
 };
