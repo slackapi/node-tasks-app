@@ -1,4 +1,7 @@
-const { appHomeOpenedCallback } = require('../app_home_opened');
+// const { appHomeOpenedCallback } = require('../app_home_opened');
+const {
+  validateAppHomeOpenedCallback,
+} = require('./__utils__/app_home_opened_helper');
 const {
   openTasksView,
   completedTasksView,
@@ -16,18 +19,10 @@ describe('app_home_opened event callback function test ', () => {
   const userId = mockAppHomeEventCallbackNewUserInput.event.user;
 
   it('should call the callback func correctly for a new user who opened the app home', async () => {
-    await appHomeOpenedCallback(mockAppHomeEventCallbackNewUserInput);
-
-    const clientViewsPublishMockFunc =
-      mockAppHomeEventCallbackNewUserInput.client.views.publish;
-
-    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
-    expect(clientViewsPublishMockFunc).toBeCalledWith(
-      expect.objectContaining({
-        user_id: userId,
-        view: openTasksView([]),
-      }),
-    );
+    await validateAppHomeOpenedCallback(mockAppHomeEventCallbackNewUserInput, {
+      user_id: userId,
+      view: openTasksView([]),
+    });
   });
 
   it('should call the callback func correctly for an existing user who opened the app home Open Tasks tab with no open tasks', async () => {
@@ -35,17 +30,12 @@ describe('app_home_opened event callback function test ', () => {
     mockAppHomeEventCallbackExistingUserInput.event.view.private_metadata =
       'open';
 
-    const clientViewsPublishMockFunc =
-      mockAppHomeEventCallbackExistingUserInput.client.views.publish;
-
-    await appHomeOpenedCallback(mockAppHomeEventCallbackExistingUserInput);
-
-    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
-    expect(clientViewsPublishMockFunc).toBeCalledWith(
-      expect.objectContaining({
+    await validateAppHomeOpenedCallback(
+      mockAppHomeEventCallbackExistingUserInput,
+      {
         user_id: userId,
         view: openTasksView([]),
-      }),
+      },
     );
   });
 
@@ -54,17 +44,20 @@ describe('app_home_opened event callback function test ', () => {
     mockAppHomeEventCallbackExistingUserInput.event.view.private_metadata =
       'completed';
 
-    const clientViewsPublishMockFunc =
-      mockAppHomeEventCallbackExistingUserInput.client.views.publish;
-
-    await appHomeOpenedCallback(mockAppHomeEventCallbackExistingUserInput);
-
-    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
-    expect(clientViewsPublishMockFunc).toBeCalledWith(
-      expect.objectContaining({
+    await validateAppHomeOpenedCallback(
+      mockAppHomeEventCallbackExistingUserInput,
+      {
         user_id: userId,
         view: completedTasksView([]),
-      }),
+      },
     );
   });
 });
+
+// TODO: Existing user with open tasks
+
+// TODO: Existing user with completed tasks
+
+// TODO: Error out
+
+// TODO: event.tab !== 'home'

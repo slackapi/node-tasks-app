@@ -7,19 +7,25 @@ const mockAppHomeOpenedEventNewUser = {
   tab: 'home',
 };
 
-const mockAppHomeEventCallbackNewUserInput = {
+const mockPublishFunc = jest.fn();
+
+const mockAppHomeEventCallbackInput = (mockAppHomeEvent) => ({
   client: {
     views: {
-      publish: jest.fn(),
+      publish: mockPublishFunc,
     },
   },
-  event: mockAppHomeOpenedEventNewUser,
+  event: mockAppHomeEvent,
   // The body payload that contains the 'event' payload
   body: {
     team_id: 'T014K402GMV',
-    event: mockAppHomeOpenedEventNewUser,
+    event: mockAppHomeEvent,
   },
-};
+});
+
+const mockAppHomeEventCallbackNewUserInput = mockAppHomeEventCallbackInput(
+  mockAppHomeOpenedEventNewUser,
+);
 
 // An existing user's home page has been opened. It will have the view property
 const mockAppHomeOpenedEventExistingUser = {
@@ -32,21 +38,12 @@ const mockAppHomeOpenedEventExistingUser = {
   },
 };
 
-const mockAppHomeEventCallbackExistingUserInput = {
-  client: {
-    views: {
-      publish: jest.fn(),
-    },
-  },
-  event: mockAppHomeOpenedEventExistingUser,
-  // The body payload that contains the 'event' payload
-  body: {
-    team_id: 'T014K402GMV',
-    event: mockAppHomeOpenedEventExistingUser,
-  },
-};
+const mockAppHomeEventCallbackExistingUserInput = mockAppHomeEventCallbackInput(
+  mockAppHomeOpenedEventExistingUser,
+);
 
 module.exports = {
   mockAppHomeEventCallbackNewUserInput,
   mockAppHomeEventCallbackExistingUserInput,
+  mockPublishFunc,
 };
