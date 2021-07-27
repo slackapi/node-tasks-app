@@ -3,12 +3,8 @@ const { modals } = require('../../../user-interface');
 
 // TODO: Refactor repeated code between the two shortcut tests
 describe('Global shortcut callback function test ', () => {
-  //   // Spy on the global console so we can make sure "console.error()" gets called when there is an error.
-  //   // We also mock it to do nothing, so that it doesn't actually write to the console. We just need to know it was called
-
-  // Restore the console.error() function to its original implementation so we don't affect other tests.
-  afterEach(() => {
-    global.console.error.mockClear();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   const mockShortcutPayloadData = {

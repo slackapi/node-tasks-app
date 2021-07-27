@@ -2,11 +2,8 @@ const { messageNewTaskCallback } = require('../message-new-task');
 const { modals } = require('../../../user-interface');
 
 describe('Message shortcut callback function test ', () => {
-  // Spy on the global console so we can make sure "console.error()" gets called when there is an error.
-  // We also mock it to do nothing, so that it doesn't actually write to the console. We just need to know it was called
-  // TODO: Update this when we find a better way to do errors (ideally we should just be raising an exception here and logging elsewhere).
-  afterAll(() => {
-    global.console.error.mockClear();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   const mockShortcutPayloadData = {

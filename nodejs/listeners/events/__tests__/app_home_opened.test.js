@@ -5,13 +5,8 @@ const {
 } = require('../../../user-interface/app-home');
 
 describe('app_home_opened event callback function test ', () => {
-  // Spy on the global console so we can make sure "console.error()" gets called when there is an error.
-  // We also mock it to do nothing, so that it doesn't actually write to the console. We just need to know it was called
-  // TODO: Update this when we find a better way to do errors (ideally we should just be raising an exception here and logging elsewhere).
-
-  // Restore the console.error() function to its original implementation so we don't affect other tests.
-  afterAll(() => {
-    global.console.error.mockClear();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   // A new user of the app (who has never set the App Home) will not have a 'view' property in their event payload
