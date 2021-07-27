@@ -1,6 +1,9 @@
 const { Op } = require('sequelize');
 
-const { openTasksView, completedTasksView } = require('../user-interface/app-home');
+const {
+  openTasksView,
+  completedTasksView,
+} = require('../user-interface/app-home');
 const { User, Task } = require('../models');
 
 module.exports = async (client, slackUserID, slackWorkspaceID, navTab) => {
@@ -44,9 +47,7 @@ module.exports = async (client, slackUserID, slackWorkspaceID, navTab) => {
       where: {
         status: 'OPEN',
       },
-      order: [
-        ['dueDate', 'ASC'],
-      ],
+      order: [['dueDate', 'ASC']],
     });
 
     await client.views.publish({
