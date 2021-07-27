@@ -1,13 +1,13 @@
 const { appHomeOpenedCallback } = require('../app_home_opened');
 const {
   openTasksView,
-  // completedTasksView,
+  completedTasksView,
 } = require('../../../user-interface/app-home');
 
 describe('app_home_opened event callback function test ', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  // beforeEach(() => {
+  //   jest.clearAllMocks();
+  // });
 
   // A new user of the app (who has never set the App Home) will not have a 'view' property in their event payload
   const mockAppHomeOpenedEventNewUser = {
@@ -87,15 +87,15 @@ describe('app_home_opened event callback function test ', () => {
     );
   });
 
-  // it('should call the callback func correctly for an existing user who opened the app home Completed Tasks tab with no completed tasks', async () => {
-  //   await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
+  it('should call the callback func correctly for an existing user who opened the app home Completed Tasks tab with no completed tasks', async () => {
+    await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
 
-  //   expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
-  //   expect(clientViewsPublishMockFunc).toBeCalledWith(
-  //     expect.objectContaining({
-  //       user_id: mockAppHomeOpenedEventNewUser.user,
-  //       view: completedTasksView([]),
-  //     }),
-  //   );
-  // });
+    expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
+    expect(clientViewsPublishMockFunc).toBeCalledWith(
+      expect.objectContaining({
+        user_id: mockAppHomeOpenedEventNewUser.user,
+        view: completedTasksView([]),
+      }),
+    );
+  });
 });
