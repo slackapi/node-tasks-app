@@ -72,10 +72,11 @@ describe('app_home_opened event callback function test ', () => {
         event: mockAppHomeOpenedEventExistingUser,
       },
     };
-    await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
 
     const clientViewsPublishMockFunc =
       mockAppHomeEventCallbackInput.client.views.publish;
+
+    await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
 
     expect(clientViewsPublishMockFunc).toBeCalledTimes(1);
     expect(clientViewsPublishMockFunc).toBeCalledWith(

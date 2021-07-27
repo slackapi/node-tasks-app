@@ -4,7 +4,7 @@
   "description": "Tasks App is a sample Task Management app built on the Slack Platform.",
   "main": "app.js",
   "scripts": {
-    "test": "jest --no-cache",
+    "test": "jest --no-cache --maxWorkers=2",
     "lint": "eslint . --ext .js"
   },
   "jest": {
