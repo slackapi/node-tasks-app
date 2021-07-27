@@ -12,10 +12,6 @@ const {
 } = require('./__fixtures__/appHomeOpenedEventPayloads');
 
 describe('app_home_opened event callback function test ', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   const userId = mockAppHomeEventCallbackNewUserInput.event.user;
 
   it('should call the callback func correctly for a new user who opened the app home', async () => {

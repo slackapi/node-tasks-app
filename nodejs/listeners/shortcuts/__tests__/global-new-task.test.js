@@ -3,14 +3,21 @@ const { modals } = require('../../../user-interface');
 const {
   viewsOpenMockFunc,
   ackMockFunc,
-  mockShortcutCallbackInput,
-} = require('./__utils__/shortcut-test-util-funcs');
+  mockGlobalShortcutPayloadData,
+} = require('./__fixtures__/shortcut-fixtures');
+const { testErrorLog } = require('./__utils__/shortcut-test-util-funcs');
+
+const mockShortcutCallbackInput = {
+  ack: ackMockFunc,
+  shortcut: mockGlobalShortcutPayloadData,
+  client: {
+    views: {
+      open: viewsOpenMockFunc,
+    },
+  },
+};
 
 describe('Global shortcut callback function test ', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('handles the shortcut event and opens the newTask modal', async () => {
     // The callback is asynchronously called so we await it here
     await globalNewTaskCallback(mockShortcutCallbackInput);
@@ -19,8 +26,8 @@ describe('Global shortcut callback function test ', () => {
     expect(viewsOpenMockFunc).toBeCalledTimes(1);
     expect(viewsOpenMockFunc).toBeCalledWith(
       expect.objectContaining({
-        trigger_id: mockShortcutCallbackInput.shortcut.trigger_id,
-        view: modals.newTask(null, mockShortcutCallbackInput.shortcut.user.id),
+        trigger_id: mockGlobalShortcutPayloadData.trigger_id,
+        view: modals.newTask(null, mockGlobalShortcutPayloadData.user.id),
       }),
     );
 
@@ -34,13 +41,6 @@ describe('Global shortcut callback function test ', () => {
   });
 
   it("logs an error if the modal can't be opened", async () => {
-    const errorMsg = 'Oh no! We have an error';
-    viewsOpenMockFunc.mockRejectedValueOnce(new Error(errorMsg));
-
-    await globalNewTaskCallback(mockShortcutCallbackInput);
-
-    expect(ackMockFunc).toBeCalledTimes(1);
-    expect(viewsOpenMockFunc).toBeCalledTimes(1);
-    expect(global.console.error).toBeCalledTimes(1);
+    await testErrorLog(globalNewTaskCallback, mockShortcutCallbackInput);
   });
 });

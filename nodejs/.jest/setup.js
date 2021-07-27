@@ -3,9 +3,9 @@
 // TODO: Update this when we find a better way to do errors (ideally we should just be raising an exception here and logging elsewhere).
 global.console = {
   log: jest.fn(),
-  error: jest.fn(),
 
   // Keep native behaviour for other methods, use those to print out things in your own tests
+  error: console.error,
   warn: console.warn,
   info: console.info,
   debug: console.debug,

@@ -1,31 +1,22 @@
-const mockShortcutPayloadData = {
-  type: 'shortcut',
-  token: 'XXXXXXXXXXXXX',
-  action_ts: '1581106241.371594',
-  team: {
-    id: 'TXXXXXXXX',
-    domain: 'shortcuts-test',
-  },
-  user: {
-    id: 'UXXXXXXXXX',
-    username: 'aman',
-    team_id: 'TXXXXXXXX',
-  },
-  callback_id: 'global_new_task',
-  trigger_id: '944799105734.773906753841.38b5894552bdd4a780554ee59d1f3638',
+const {
+  viewsOpenMockFunc,
+  ackMockFunc,
+} = require('../__fixtures__/shortcut-fixtures');
+
+const testErrorLog = async (callbackFunctionToTest, callbackFunctionInput) => {
+  // Temporarily mock console.error to prevent the error from being logged
+  const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  const errorMsg = 'Oh no! We have an error';
+  viewsOpenMockFunc.mockRejectedValueOnce(new Error(errorMsg));
+
+  await callbackFunctionToTest(callbackFunctionInput);
+
+  expect(ackMockFunc).toBeCalledTimes(1);
+  expect(viewsOpenMockFunc).toBeCalledTimes(1);
+  expect(errorSpy).toBeCalledTimes(1);
+  errorSpy.mockRestore();
 };
 
-const viewsOpenMockFunc = jest.fn();
-const ackMockFunc = jest.fn();
-
-const mockShortcutCallbackInput = {
-  ack: ackMockFunc,
-  shortcut: mockShortcutPayloadData,
-  client: {
-    views: {
-      open: viewsOpenMockFunc,
-    },
-  },
+module.exports = {
+  testErrorLog,
 };
-
-module.exports = { viewsOpenMockFunc, ackMockFunc, mockShortcutCallbackInput };
