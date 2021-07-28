@@ -1,16 +1,39 @@
 const { appHomeOpenedCallback } = require('../../app_home_opened');
-const {
-  mockPublishFunc,
-} = require('../__fixtures__/appHomeOpenedEventPayloads');
+
+/* ----------------------------------------------- Mocked API methods ----------------------------------------------- */
+
+const mockPublishFunc = jest.fn();
+
+/* -------------------- Functions for generating the inputs to the listener's callback functions. ------------------- */
+
+const mockAppHomeEventCallbackInput = (mockAppHomeEvent) => ({
+  client: {
+    views: {
+      publish: mockPublishFunc,
+    },
+  },
+  event: mockAppHomeEvent,
+  // The body payload that contains the 'event' payload
+  body: {
+    team_id: 'T014K402GMV',
+    event: mockAppHomeEvent,
+  },
+});
+
+/* ------------------------------------- Utility functions for testing shortcuts ------------------------------------ */
 
 const validateAppHomeOpenedCallback = async (
-  mockAppHomeEventCallbackInput,
+  appHomeEventCallbackInput,
   publishArgs,
 ) => {
-  await appHomeOpenedCallback(mockAppHomeEventCallbackInput);
+  await appHomeOpenedCallback(appHomeEventCallbackInput);
 
   expect(mockPublishFunc).toBeCalledTimes(1);
   expect(mockPublishFunc).toBeCalledWith(expect.objectContaining(publishArgs));
 };
 
-module.exports = { validateAppHomeOpenedCallback };
+module.exports = {
+  validateAppHomeOpenedCallback,
+  mockAppHomeEventCallbackInput,
+  mockPublishFunc,
+};
