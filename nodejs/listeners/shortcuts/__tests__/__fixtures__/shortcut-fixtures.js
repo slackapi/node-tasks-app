@@ -43,16 +43,7 @@ const mockMessageShortcutPayloadData = {
   },
 };
 
-/* ------------------------------------------------ Mocked API methods ------------------------------------------------ */
-
-const viewsOpenMockFunc = jest.fn();
-const ackMockFunc = jest.fn();
-
-/* -------------------------------------------- Callback function inputs -------------------------------------------- */
-
 module.exports = {
-  viewsOpenMockFunc,
-  ackMockFunc,
   mockGlobalShortcutPayloadData,
   mockMessageShortcutPayloadData,
 };

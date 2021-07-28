@@ -1,7 +1,33 @@
-const {
-  viewsOpenMockFunc,
-  ackMockFunc,
-} = require('../__fixtures__/shortcut-fixtures');
+/* ----------------------------------------------- Mocked API methods ----------------------------------------------- */
+
+const viewsOpenMockFunc = jest.fn();
+const ackMockFunc = jest.fn();
+
+/* -------------------- Functions for generating the inputs to the listener's callback functions. ------------------- */
+
+const mockShortcutCallbackInput = (shortcutPayload) => ({
+  ack: ackMockFunc,
+  shortcut: shortcutPayload,
+  client: {
+    views: {
+      open: viewsOpenMockFunc,
+    },
+  },
+});
+
+/* ------------------------------------- Utility functions for testing shortcuts ------------------------------------ */
+
+const testShortcut = async (shortcutCallbackPromise, triggerId, view) => {
+  await shortcutCallbackPromise;
+  expect(ackMockFunc).toBeCalledTimes(1);
+  expect(viewsOpenMockFunc).toBeCalledTimes(1);
+  expect(viewsOpenMockFunc).toBeCalledWith(
+    expect.objectContaining({
+      trigger_id: triggerId,
+      view,
+    }),
+  );
+};
 
 const testErrorLog = async (callbackFunctionToTest, callbackFunctionInput) => {
   // Temporarily mock console.error to prevent the error from being logged
@@ -19,4 +45,6 @@ const testErrorLog = async (callbackFunctionToTest, callbackFunctionInput) => {
 
 module.exports = {
   testErrorLog,
+  mockShortcutCallbackInput,
+  testShortcut,
 };
