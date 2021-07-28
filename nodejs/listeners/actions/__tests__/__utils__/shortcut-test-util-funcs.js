@@ -1,35 +1,36 @@
 /* -------------------- Functions for generating the inputs to the listener's callback functions. ------------------- */
 
-const mockShortcutCallbackInput = (shortcutPayload) => ({
+const mockActionCallbackInput = (actionPayload) => ({
   ack: global.ackMockFunc,
-  shortcut: shortcutPayload,
+  body: actionPayload,
   client: {
     views: {
-      open: global.openViewMockFunc,
+      publish: global.publishViewMockFunc,
     },
   },
 });
 
 /* ------------------------------------- Utility functions for testing shortcuts ------------------------------------ */
-// TODO: Very similar to the testAction and testEvent functions. Maybe we should make these a global helper
-const testShortcut = async (shortcutCallbackPromise, triggerId) => {
-  await shortcutCallbackPromise;
+
+const testAction = async (actionCallbackPromise, userId) => {
+  await actionCallbackPromise;
   expect(global.ackMockFunc).toBeCalledTimes(1);
-  expect(global.openViewMockFunc).toBeCalledTimes(1);
+  expect(global.publishViewMockFunc).toBeCalledTimes(1);
   // We expect a string as the view value since we are using the Slack Block Builder which returns JSON strings
-  expect(global.openViewMockFunc).toBeCalledWith(
+  expect(global.publishViewMockFunc).toBeCalledWith(
     expect.objectContaining({
-      trigger_id: triggerId,
+      user_id: userId,
       view: expect.any(String),
     }),
   );
 
   // We also test whether the "view" key of the mocked client.views.publish method was given valid JSON
-  const openViewMockFuncViewArg = global.openViewMockFunc.mock.calls[0][0];
-  expect(global.tryParseJSON(openViewMockFuncViewArg.view)).toBeTruthy();
+  const publishViewMockFuncViewArg =
+    global.publishViewMockFunc.mock.calls[0][0];
+  expect(global.tryParseJSON(publishViewMockFuncViewArg.view)).toBeTruthy();
 };
 
 module.exports = {
-  mockShortcutCallbackInput,
-  testShortcut,
+  mockActionCallbackInput,
+  testAction,
 };

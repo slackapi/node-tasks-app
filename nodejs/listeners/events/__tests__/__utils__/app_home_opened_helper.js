@@ -1,15 +1,11 @@
 const { appHomeOpenedCallback } = require('../../app_home_opened');
 
-/* ----------------------------------------------- Mocked API methods ----------------------------------------------- */
-
-const mockPublishFunc = jest.fn();
-
 /* -------------------- Functions for generating the inputs to the listener's callback functions. ------------------- */
 
 const mockAppHomeEventCallbackInput = (mockAppHomeEvent) => ({
   client: {
     views: {
-      publish: mockPublishFunc,
+      publish: global.publishViewMockFunc,
     },
   },
   event: mockAppHomeEvent,
@@ -28,12 +24,13 @@ const validateAppHomeOpenedCallback = async (
 ) => {
   await appHomeOpenedCallback(appHomeEventCallbackInput);
 
-  expect(mockPublishFunc).toBeCalledTimes(1);
-  expect(mockPublishFunc).toBeCalledWith(expect.objectContaining(publishArgs));
+  expect(global.publishViewMockFunc).toBeCalledTimes(1);
+  expect(global.publishViewMockFunc).toBeCalledWith(
+    expect.objectContaining(publishArgs),
+  );
 };
 
 module.exports = {
   validateAppHomeOpenedCallback,
   mockAppHomeEventCallbackInput,
-  mockPublishFunc,
 };
