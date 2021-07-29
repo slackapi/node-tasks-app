@@ -1,6 +1,24 @@
-const {} = require('./__fixtures__/action-fixtures');
-const {} = require('./__utils__/shortcut-test-util-funcs');
+const { appHomeBlockActionPayload } = require('./__fixtures__/action-fixtures');
+
+const {
+  testAction,
+  testActionError,
+} = require('./__utils__/action-test-util-funcs');
+const {
+  openTaskCheckboxClickedCallback,
+} = require('../block_open_task_list_home');
 
 describe('App home nav completed action callback function test ', () => {
-  it('works properly', async () => {});
+  it('Acknowledges the action and reloads the app home', async () => {
+    await testAction(
+      appHomeBlockActionPayload,
+      openTaskCheckboxClickedCallback,
+    );
+  });
+  it('Logs an error when the the new view fails to be published', async () => {
+    await testActionError(
+      appHomeBlockActionPayload,
+      openTaskCheckboxClickedCallback,
+    );
+  });
 });

@@ -9,18 +9,22 @@ const mockActionCallbackInput = (actionPayload) => ({
       open: global.openViewMockFunc,
     },
   },
+  action: actionPayload.actions[1],
 });
 
 /* -------------------------- Utility functions for testing the listener callback functions ------------------------- */
+// TODO: There's a ton of commonalities between the different action tests, maybe there's room for refactoring across them
+// Maybe a utility function that also sets up the test cases :think:
 
-const testAction = async (mockActionPayloadData, actionCallback, apiMethod) => {
+const testAction = async (
+  mockActionPayloadData,
+  actionCallback,
+  mockedApiMethod = global.publishViewMockFunc,
+  mockedApiMethodArgObj = { user_id: mockActionPayloadData.user.id },
+) => {
   const callbackInput = mockActionCallbackInput(mockActionPayloadData);
 
   const callbackFunctionPromiseToTest = actionCallback(callbackInput);
-  const mockedApiMethod = apiMethod;
-  const mockedApiMethodArgObj = {
-    user_id: mockActionPayloadData.user.id,
-  };
 
   await global.testListener(
     callbackFunctionPromiseToTest,
@@ -32,7 +36,7 @@ const testAction = async (mockActionPayloadData, actionCallback, apiMethod) => {
 const testActionError = async (
   mockActionPayloadData,
   actionCallback,
-  methodToFail,
+  methodToFail = global.publishViewMockFunc,
 ) => {
   const callbackInput = mockActionCallbackInput(mockActionPayloadData);
   await global.testErrorLog(actionCallback(callbackInput), methodToFail);

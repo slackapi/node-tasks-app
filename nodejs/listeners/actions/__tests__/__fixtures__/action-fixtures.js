@@ -95,6 +95,14 @@ const appHomeBlockActionPayload = {
       },
       action_ts: '1571318425.267782',
     },
+    {
+      action_id: 'reopen-task',
+      block_id: 'T6iez',
+      text: { type: 'plain_text', text: 'Reopen', emoji: true },
+      value: '2',
+      type: 'button',
+      action_ts: '1627532321.009494',
+    },
   ],
 };
 
