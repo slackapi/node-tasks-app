@@ -3,16 +3,18 @@ const {
 } = require('./block_app-home-nav-completed');
 
 const {
-  blockOpenTaskCheckboxClickedCallback,
-} = require('./block_open_task_list_home');
-const {
-  blockCreateATaskAppHomeCallback,
+  appHomeNavCreateATaskCallback,
 } = require('./block_app-home-nav-create-a-task');
-const { blockAppHomeNavOpenCallback } = require('./block_app-home-nav-open');
-const { blockReopenTaskCallback } = require('./block_reopen-task');
+
+const { appHomeNavOpenCallback } = require('./block_app-home-nav-open');
+
+const { buttonMarkAsDoneCallback } = require('./block_button-mark-as-done');
+
+const { reopenTaskCallback } = require('./block_reopen-task');
+
 const {
-  blockButtonMarkAsDoneCallback,
-} = require('./block_button-mark-as-done');
+  openTaskCheckboxClickedCallback,
+} = require('./block_open_task_list_home');
 
 const blockAppHomeNavCompletedListener = (app) => {
   app.action(
@@ -21,15 +23,40 @@ const blockAppHomeNavCompletedListener = (app) => {
   );
 };
 
-const blockOpenTaskCheckboxClickedListener = (app) => {};
+const blockCreateATaskAppHomeListener = (app) => {
+  app.action('app-home-nav-create-a-task', appHomeNavCreateATaskCallback);
+};
 
-const blockCreateATaskAppHomeListener = (app) => {};
+const blockAppHomeNavOpenListener = (app) => {
+  app.action(
+    { action_id: 'app-home-nav-open', type: 'block_actions' },
+    appHomeNavOpenCallback,
+  );
+};
 
-const blockAppHomeNavOpenListener = (app) => {};
+const blockButtonMarkAsDoneListener = (app) => {
+  app.action(
+    { action_id: 'button-mark-as-done', type: 'block_actions' },
+    buttonMarkAsDoneCallback,
+  );
+};
 
-const blockReopenTaskListener = (app) => {};
+const blockReopenTaskListener = (app) => {
+  app.action(
+    { action_id: 'reopen-task', type: 'block_actions' },
+    reopenTaskCallback,
+  );
+};
 
-const blockButtonMarkAsDoneListener = (app) => {};
+const blockOpenTaskCheckboxClickedListener = (app) => {
+  app.action(
+    {
+      action_id: 'blockOpenTaskCheckboxClicked',
+      type: 'block_actions',
+    },
+    openTaskCheckboxClickedCallback,
+  );
+};
 
 module.exports = {
   blockOpenTaskCheckboxClicked: blockOpenTaskCheckboxClickedListener,

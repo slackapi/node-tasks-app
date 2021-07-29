@@ -1,33 +1,22 @@
 const { messageNewTaskCallback } = require('../message-new-task');
-const { modals } = require('../../../user-interface');
 const {
   mockMessageShortcutPayloadData,
 } = require('./__fixtures__/shortcut-fixtures');
 
 const {
-  mockShortcutCallbackInput,
   testShortcut,
+  testShortcutError,
 } = require('./__utils__/shortcut-test-util-funcs');
 
 describe('Message shortcut callback function test ', () => {
-  const mockMessageShortcutCallbackInput = mockShortcutCallbackInput(
-    mockMessageShortcutPayloadData,
-  );
   it('handles the message shortcut event and opens the newTask modal', async () => {
-    await testShortcut(
-      messageNewTaskCallback(mockMessageShortcutCallbackInput),
-      mockMessageShortcutPayloadData.trigger_id,
-      modals.newTask(
-        mockMessageShortcutPayloadData.message.text,
-        mockMessageShortcutPayloadData.user.id,
-      ),
-    );
+    await testShortcut(mockMessageShortcutPayloadData, messageNewTaskCallback);
   });
 
   it("logs an error if the modal can't be opened", async () => {
-    await global.testErrorLog(
-      messageNewTaskCallback(mockMessageShortcutCallbackInput),
-      global.openViewMockFunc,
+    await testShortcutError(
+      mockMessageShortcutPayloadData,
+      messageNewTaskCallback,
     );
   });
 });

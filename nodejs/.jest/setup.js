@@ -25,7 +25,7 @@ global.ackMockFunc = jest.fn();
 /* --------------------------------------------- Global helper functions -------------------------------------------- */
 
 // A helper function to parse and validate JSON.
-global.tryParseJSON = (jsonString) => {
+global.isValidJSON = (jsonString) => {
   try {
     var obj = JSON.parse(jsonString);
 
@@ -40,6 +40,28 @@ global.tryParseJSON = (jsonString) => {
   } catch (e) {}
 
   return false;
+};
+
+global.testListener = async (
+  callbackFunctionPromiseToTest,
+  mockedApiMethod,
+  mockedApiMethodArgObj,
+  usesAck = true,
+) => {
+  await callbackFunctionPromiseToTest;
+  if (usesAck) expect(global.ackMockFunc).toBeCalledTimes(1);
+  expect(mockedApiMethod).toBeCalledTimes(1);
+  // We expect a string as the view value since we are using the Slack Block Builder which returns JSON strings
+  expect(mockedApiMethod).toBeCalledWith(
+    expect.objectContaining({
+      ...mockedApiMethodArgObj,
+      view: expect.any(String),
+    }),
+  );
+
+  // We also test whether the "view" key of the mocked client.views.publish method was given valid JSON
+  const mockedApiMethodViewArg = mockedApiMethod.mock.calls[0][0];
+  expect(global.isValidJSON(mockedApiMethodViewArg.view)).toBeTruthy();
 };
 
 // A helper function to test if a listener's callback function errors out properly
