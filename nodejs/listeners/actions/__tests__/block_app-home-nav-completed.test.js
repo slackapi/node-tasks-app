@@ -1,4 +1,6 @@
-const { appHomeBlockActionPayload } = require('./__fixtures__/action-fixtures');
+const {
+  appHomeBlockChecklistSelectionActionPayload,
+} = require('./__fixtures__/action-fixtures');
 
 const {
   testAction,
@@ -10,11 +12,14 @@ const {
 
 describe('App home nav completed action callback function test ', () => {
   it('Acknowledges the action and reloads the app home', async () => {
-    await testAction(appHomeBlockActionPayload, appHomeNavCompletedCallback);
+    await testAction(
+      appHomeBlockChecklistSelectionActionPayload,
+      appHomeNavCompletedCallback,
+    );
   });
   it('Logs an error when the the new view fails to be published', async () => {
     await testActionError(
-      appHomeBlockActionPayload,
+      appHomeBlockChecklistSelectionActionPayload,
       appHomeNavCompletedCallback,
     );
   });

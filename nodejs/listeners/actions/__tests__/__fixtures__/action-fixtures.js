@@ -1,5 +1,12 @@
 /* --------------------------------------------- Hard-coded payload data -------------------------------------------- */
-const appHomeBlockActionPayload = {
+// TODO: Cleanup the payloads,keep only whats needed
+
+const appHomeBlockChecklistSelectionActionPayloadBase = (
+  actions,
+  additionalProperies,
+) => ({
+  ...additionalProperies,
+  actions,
   type: 'block_actions',
   team: {
     id: 'T9TK3CUKW',
@@ -83,27 +90,60 @@ const appHomeBlockActionPayload = {
     app_installed_team_id: 'T9TK3CUKW',
     bot_id: 'B0B00B00',
   },
-  actions: [
+});
+
+const appHomeBlockChecklistSelectionActionPayload =
+  appHomeBlockChecklistSelectionActionPayloadBase([
     {
-      type: 'button',
-      block_id: '7fhg',
-      action_id: 'XRX',
-      text: {
-        type: 'plain_text',
-        text: 'Action A',
-        emoji: true,
-      },
-      action_ts: '1571318425.267782',
+      selected_options: [{ text: [Object], value: 'open-task-2' }],
+      action_id: 'blockOpenTaskCheckboxClicked',
+      block_id: 'open-task-status-change-0',
+      type: 'checkboxes',
+      action_ts: '1627533904.067682',
     },
+  ]);
+
+const messageBlockActionPayload =
+  appHomeBlockChecklistSelectionActionPayloadBase(
+    [
+      {
+        action_id: 'WaXA',
+        block_id: '=qXel',
+        text: {
+          type: 'plain_text',
+          text: 'View',
+          emoji: true,
+        },
+        value: '0',
+        type: 'button',
+        action_ts: '1548426417.840180',
+      },
+    ],
+    {
+      message: {
+        bot_id: 'BAH5CA16Z',
+        type: 'message',
+        text: "This content can't be displayed.",
+        user: 'UAJ2RU415',
+        ts: '1548261231.000200',
+      },
+    },
+  );
+
+const buttonPressActionPayload =
+  appHomeBlockChecklistSelectionActionPayloadBase([
     {
       action_id: 'reopen-task',
-      block_id: 'T6iez',
+      block_id: 'bByD',
       text: { type: 'plain_text', text: 'Reopen', emoji: true },
-      value: '2',
+      value: '1',
       type: 'button',
-      action_ts: '1627532321.009494',
+      action_ts: '1627534494.853645',
     },
-  ],
-};
+  ]);
 
-module.exports = { appHomeBlockActionPayload };
+module.exports = {
+  appHomeBlockChecklistSelectionActionPayload,
+  messageBlockActionPayload,
+  buttonPressActionPayload,
+};

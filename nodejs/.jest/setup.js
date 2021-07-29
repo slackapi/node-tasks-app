@@ -19,6 +19,8 @@ global.console = {
 global.openViewMockFunc = jest.fn();
 // Mock for the client.views.publish method
 global.publishViewMockFunc = jest.fn();
+// Mocks the client.chat.update method
+global.updateChatMockFunc = jest.fn();
 // Mock for the ack() method
 global.ackMockFunc = jest.fn();
 
@@ -53,15 +55,14 @@ global.testListener = async (
   expect(mockedApiMethod).toBeCalledTimes(1);
   // We expect a string as the view value since we are using the Slack Block Builder which returns JSON strings
   expect(mockedApiMethod).toBeCalledWith(
-    expect.objectContaining({
-      ...mockedApiMethodArgObj,
-      view: expect.any(String),
-    }),
+    expect.objectContaining(mockedApiMethodArgObj),
   );
 
-  // We also test whether the "view" key of the mocked client.views.publish method was given valid JSON
-  const mockedApiMethodViewArg = mockedApiMethod.mock.calls[0][0];
-  expect(global.isValidJSON(mockedApiMethodViewArg.view)).toBeTruthy();
+  if ('view' in mockedApiMethodArgObj) {
+    // We also test whether the "view" key of the mocked client.views.publish method was given valid JSON
+    const mockedApiMethodViewArg = mockedApiMethod.mock.calls[0][0];
+    expect(global.isValidJSON(mockedApiMethodViewArg.view)).toBeTruthy();
+  }
 };
 
 // A helper function to test if a listener's callback function errors out properly

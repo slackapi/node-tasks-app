@@ -1,4 +1,6 @@
-const { appHomeBlockActionPayload } = require('./__fixtures__/action-fixtures');
+const {
+  appHomeBlockChecklistSelectionActionPayload,
+} = require('./__fixtures__/action-fixtures');
 
 const {
   testAction,
@@ -12,18 +14,18 @@ const {
 describe('App home nav create a task action callback function test ', () => {
   it('Acknowledges the action and reloads the app home', async () => {
     await testAction(
-      appHomeBlockActionPayload,
+      appHomeBlockChecklistSelectionActionPayload,
       appHomeNavCreateATaskCallback,
       global.openViewMockFunc,
-      { trigger_id: appHomeBlockActionPayload.trigger_id },
+      { trigger_id: appHomeBlockChecklistSelectionActionPayload.trigger_id },
     );
   });
   it('Logs an error when the the new view fails to be published', async () => {
     await testActionError(
-      appHomeBlockActionPayload,
+      appHomeBlockChecklistSelectionActionPayload,
       appHomeNavCreateATaskCallback,
       global.openViewMockFunc,
-      { trigger_id: appHomeBlockActionPayload.trigger_id },
+      { trigger_id: appHomeBlockChecklistSelectionActionPayload.trigger_id },
     );
   });
 });

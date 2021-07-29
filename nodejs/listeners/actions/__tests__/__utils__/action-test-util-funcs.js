@@ -8,8 +8,11 @@ const mockActionCallbackInput = (actionPayload) => ({
       publish: global.publishViewMockFunc,
       open: global.openViewMockFunc,
     },
+    chat: {
+      update: global.updateChatMockFunc,
+    },
   },
-  action: actionPayload.actions[1],
+  action: actionPayload.actions[0],
 });
 
 /* -------------------------- Utility functions for testing the listener callback functions ------------------------- */
@@ -20,7 +23,10 @@ const testAction = async (
   mockActionPayloadData,
   actionCallback,
   mockedApiMethod = global.publishViewMockFunc,
-  mockedApiMethodArgObj = { user_id: mockActionPayloadData.user.id },
+  mockedApiMethodArgObj = {
+    user_id: mockActionPayloadData.user.id,
+    view: expect.any(String),
+  },
 ) => {
   const callbackInput = mockActionCallbackInput(mockActionPayloadData);
 

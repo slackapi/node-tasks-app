@@ -23,6 +23,7 @@ const testShortcut = async (
   const mockedApiMethod = apiMethod;
   const mockedApiMethodArgObj = {
     trigger_id: mockShortcutPayloadData.trigger_id,
+    view: expect.any(String),
   };
 
   await global.testListener(

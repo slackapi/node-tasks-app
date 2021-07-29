@@ -1,4 +1,4 @@
-const { appHomeBlockActionPayload } = require('./__fixtures__/action-fixtures');
+const { messageBlockActionPayload } = require('./__fixtures__/action-fixtures');
 
 const {
   testAction,
@@ -8,9 +8,30 @@ const { buttonMarkAsDoneCallback } = require('../block_button-mark-as-done');
 
 describe('App home nav open action callback function test ', () => {
   it('Acknowledges the action and reloads the app home', async () => {
-    await testAction(appHomeBlockActionPayload, buttonMarkAsDoneCallback);
+    await testAction(
+      messageBlockActionPayload,
+      buttonMarkAsDoneCallback,
+      global.updateChatMockFunc,
+      {
+        channel: messageBlockActionPayload.container.channel_id,
+        ts: messageBlockActionPayload.container.message_ts,
+        text: `~${messageBlockActionPayload.message.text}~`,
+        blocks: [], // Remove all the existing blocks, just leaving the text above.
+      },
+    );
   });
   it('Logs an error when the the new view fails to be published', async () => {
-    await testActionError(appHomeBlockActionPayload, buttonMarkAsDoneCallback);
+    // TODO: Remove the arguments for the methods on the fail condition, we dont need them when testing for failure
+    await testActionError(
+      messageBlockActionPayload,
+      buttonMarkAsDoneCallback,
+      global.updateChatMockFunc,
+      {
+        channel: messageBlockActionPayload.container.channel_id,
+        ts: messageBlockActionPayload.container.message_ts,
+        text: `~${messageBlockActionPayload.message.text}~`,
+        blocks: [], // Remove all the existing blocks, just leaving the text above.
+      },
+    );
   });
 });
