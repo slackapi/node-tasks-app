@@ -6,6 +6,7 @@ const { DateTime } = require('luxon');
 const viewPayloadBase = (
   selectedDate = null,
   selectedTime = null,
+  selectedUser = 'U01561Q291S',
   additionalProperties = {},
 ) => ({
   ...additionalProperties,
@@ -84,7 +85,7 @@ const viewPayloadBase = (
         taskAssignUser: {
           taskAssignUser: {
             type: 'users_select',
-            selected_user: 'U01561Q291S',
+            selected_user: selectedUser,
           },
         },
         taskDueDate: {
@@ -132,9 +133,16 @@ const modalViewPayloadDueDateTooFarInFuture = viewPayloadBase(
   '13:00',
 );
 
+const modelViewPayloadTaskAssignedToDifferentUser = viewPayloadBase(
+  validDate,
+  '15:00',
+  'U014261G301V',
+);
+
 module.exports = {
   modalViewPayloadSelectedDateNoTime,
   modalViewPayloadSelectedDateFromPast,
   modalViewPayloadSelectedDateAndTime,
   modalViewPayloadDueDateTooFarInFuture,
+  modelViewPayloadTaskAssignedToDifferentUser,
 };

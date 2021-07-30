@@ -3,11 +3,13 @@ const {
   modalViewPayloadSelectedDateFromPast,
   modalViewPayloadSelectedDateAndTime,
   modalViewPayloadDueDateTooFarInFuture,
+  modelViewPayloadTaskAssignedToDifferentUser,
 } = require('./__fixtures__/view-fixtures');
 
 const {
   testView,
   testViewAckError,
+  testViewError,
 } = require('./__utils__/view-test-util-funcs');
 
 const { newTaskModalCallback } = require('../new-task-modal');
@@ -39,8 +41,9 @@ describe('New task modal view callback function test ', () => {
     );
   });
 
+  // TODO: test for the client.views.publish() method as well since reloadAppHome() is called in the callback
+
   it('schedules a message to remind the user of an upcoming task if the due date is < 120 days in the future', async () => {
-    // TODO: test for the client.views.publish() method as well
     await testView(
       modalViewPayloadSelectedDateAndTime,
       newTaskModalCallback,
@@ -68,21 +71,28 @@ describe('New task modal view callback function test ', () => {
     );
   });
 
-  // it('sends a message to the user who the task was assigned to if the assignee != task creator', async () => {
-  //   await testView(
-  //     modalViewPayload,
-  //     newTaskModalCallback,
-  //     [global.viewOpenMockFunc],
-  //     { trigger_id: appHomeBlockChecklistSelectionActionPayload.trigger_id },
-  //   );
-  // });
+  it('sends a message to the user who the task was assigned to if the assignee != task creator', async () => {
+    const selectedUser =
+      modelViewPayloadTaskAssignedToDifferentUser.view.state.values
+        .taskAssignUser.taskAssignUser.selected_user;
+    await testView(
+      modelViewPayloadTaskAssignedToDifferentUser,
+      newTaskModalCallback,
+      global.chatPostMessageMockFunc,
+      {
+        text: expect.stringContaining(
+          `<@${modalViewPayloadSelectedDateAndTime.user.id}> assigned you`,
+        ),
+        channel: selectedUser,
+      },
+    );
+  });
 
-  // it('Logs an error when the the new view fails to be published', async () => {
-  //   await testViewError(
-  //     appHomeBlockChecklistSelectionActionPayload,
-  //     appHomeNavCreateATaskCallback,
-  //     global.viewOpenMockFunc,
-  //     { trigger_id: appHomeBlockChecklistSelectionActionPayload.trigger_id },
-  //   );
-  // });
+  it('Logs an error when the the new view fails to be published', async () => {
+    await testViewError(
+      modalViewPayloadDueDateTooFarInFuture,
+      newTaskModalCallback,
+      global.viewPublishMockFunc,
+    );
+  });
 });
