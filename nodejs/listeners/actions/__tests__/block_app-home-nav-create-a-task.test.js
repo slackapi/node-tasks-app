@@ -16,7 +16,7 @@ describe('App home nav create a task action callback function test ', () => {
     await testAction(
       appHomeBlockChecklistSelectionActionPayload,
       appHomeNavCreateATaskCallback,
-      global.openViewMockFunc,
+      global.viewOpenMockFunc,
       { trigger_id: appHomeBlockChecklistSelectionActionPayload.trigger_id },
     );
   });
@@ -24,7 +24,7 @@ describe('App home nav create a task action callback function test ', () => {
     await testActionError(
       appHomeBlockChecklistSelectionActionPayload,
       appHomeNavCreateATaskCallback,
-      global.openViewMockFunc,
+      global.viewOpenMockFunc,
       { trigger_id: appHomeBlockChecklistSelectionActionPayload.trigger_id },
     );
   });

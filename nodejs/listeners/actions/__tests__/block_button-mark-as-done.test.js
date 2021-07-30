@@ -11,7 +11,7 @@ describe('App home nav open action callback function test ', () => {
     await testAction(
       messageBlockActionPayload,
       buttonMarkAsDoneCallback,
-      global.updateChatMockFunc,
+      global.chatUpdateMockFunc,
       {
         channel: messageBlockActionPayload.container.channel_id,
         ts: messageBlockActionPayload.container.message_ts,
@@ -25,7 +25,7 @@ describe('App home nav open action callback function test ', () => {
     await testActionError(
       messageBlockActionPayload,
       buttonMarkAsDoneCallback,
-      global.updateChatMockFunc,
+      global.chatUpdateMockFunc,
       {
         channel: messageBlockActionPayload.container.channel_id,
         ts: messageBlockActionPayload.container.message_ts,

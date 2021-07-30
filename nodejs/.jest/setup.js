@@ -16,11 +16,36 @@ global.console = {
 };
 
 // Mock for the client.views.open method
-global.openViewMockFunc = jest.fn();
+global.viewOpenMockFunc = jest.fn();
 // Mock for the client.views.publish method
-global.publishViewMockFunc = jest.fn();
+global.viewPublishMockFunc = jest.fn();
 // Mocks the client.chat.update method
-global.updateChatMockFunc = jest.fn();
+global.chatUpdateMockFunc = jest.fn();
+// Mocks the client.chat.postMessage method
+global.chatPostMessageMockFunc = jest.fn();
+// Mocks the client.chat.scheduleMessage method
+global.chatScheduleMessageMockFunc = jest.fn(
+  async ({ channel, postAt, text }) => ({
+    ok: true,
+    channel,
+    scheduled_message_id: 'Q1298393284',
+    post_at: postAt,
+    message: {
+      text,
+      username: 'ecto1',
+      bot_id: 'B19LU7CSY',
+      attachments: [
+        {
+          text: 'This is an attachment',
+          id: 1,
+          fallback: "This is an attachment's fallback",
+        },
+      ],
+      type: 'delayed_message',
+      subtype: 'bot_message',
+    },
+  }),
+);
 // Mock for the ack() method
 global.ackMockFunc = jest.fn();
 
@@ -44,6 +69,7 @@ global.isValidJSON = (jsonString) => {
   return false;
 };
 
+// TODO: Find a better way to organize the parameters for the testListener function.
 global.testListener = async (
   callbackFunctionPromiseToTest,
   mockedApiMethod,
@@ -51,8 +77,7 @@ global.testListener = async (
   usesAck = true,
 ) => {
   await callbackFunctionPromiseToTest;
-  if (usesAck) expect(global.ackMockFunc).toBeCalledTimes(1);
-  expect(mockedApiMethod).toBeCalledTimes(1);
+
   // We expect a string as the view value since we are using the Slack Block Builder which returns JSON strings
   expect(mockedApiMethod).toBeCalledWith(
     expect.objectContaining(mockedApiMethodArgObj),
@@ -63,6 +88,8 @@ global.testListener = async (
     const mockedApiMethodViewArg = mockedApiMethod.mock.calls[0][0];
     expect(global.isValidJSON(mockedApiMethodViewArg.view)).toBeTruthy();
   }
+
+  if (usesAck) expect(global.ackMockFunc).toHaveBeenCalledTimes(1);
 };
 
 // A helper function to test if a listener's callback function errors out properly

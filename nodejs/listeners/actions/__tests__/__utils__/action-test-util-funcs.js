@@ -5,11 +5,11 @@ const mockActionCallbackInput = (actionPayload) => ({
   body: actionPayload,
   client: {
     views: {
-      publish: global.publishViewMockFunc,
-      open: global.openViewMockFunc,
+      publish: global.viewPublishMockFunc,
+      open: global.viewOpenMockFunc,
     },
     chat: {
-      update: global.updateChatMockFunc,
+      update: global.chatUpdateMockFunc,
     },
   },
   action: actionPayload.actions[0],
@@ -22,7 +22,7 @@ const mockActionCallbackInput = (actionPayload) => ({
 const testAction = async (
   mockActionPayloadData,
   actionCallback,
-  mockedApiMethod = global.publishViewMockFunc,
+  mockedApiMethod = global.viewPublishMockFunc,
   mockedApiMethodArgObj = {
     user_id: mockActionPayloadData.user.id,
     view: expect.any(String),
@@ -42,7 +42,7 @@ const testAction = async (
 const testActionError = async (
   mockActionPayloadData,
   actionCallback,
-  methodToFail = global.publishViewMockFunc,
+  methodToFail = global.viewPublishMockFunc,
 ) => {
   const callbackInput = mockActionCallbackInput(mockActionPayloadData);
   await global.testErrorLog(actionCallback(callbackInput), methodToFail);

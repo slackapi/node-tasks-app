@@ -5,13 +5,13 @@ const { appHomeOpenedCallback } = require('../../app_home_opened');
 const mockAppHomeEventCallbackInput = (mockAppHomeEvent) => ({
   client: {
     views: {
-      publish: global.publishViewMockFunc,
+      publish: global.viewPublishMockFunc,
     },
   },
   event: mockAppHomeEvent,
   // The body payload that contains the 'event' payload
   body: {
-    team_id: 'T014K402GMV',
+    team_id: 'T014K402SOW',
     event: mockAppHomeEvent,
   },
 });
@@ -24,8 +24,8 @@ const validateAppHomeOpenedCallback = async (
 ) => {
   await appHomeOpenedCallback(appHomeEventCallbackInput);
 
-  expect(global.publishViewMockFunc).toBeCalledTimes(1);
-  expect(global.publishViewMockFunc).toBeCalledWith(
+  expect(global.viewPublishMockFunc).toBeCalledTimes(1);
+  expect(global.viewPublishMockFunc).toBeCalledWith(
     expect.objectContaining(publishArgs),
   );
 };

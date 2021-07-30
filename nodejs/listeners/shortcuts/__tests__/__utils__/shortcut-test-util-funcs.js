@@ -5,7 +5,7 @@ const mockShortcutCallbackInput = (shortcutPayload) => ({
   shortcut: shortcutPayload,
   client: {
     views: {
-      open: global.openViewMockFunc,
+      open: global.viewOpenMockFunc,
     },
   },
 });
@@ -15,7 +15,7 @@ const mockShortcutCallbackInput = (shortcutPayload) => ({
 const testShortcut = async (
   mockShortcutPayloadData,
   shortcutCallback,
-  apiMethod = global.openViewMockFunc,
+  apiMethod = global.viewOpenMockFunc,
 ) => {
   const callbackInput = mockShortcutCallbackInput(mockShortcutPayloadData);
 
@@ -36,7 +36,7 @@ const testShortcut = async (
 const testShortcutError = async (
   mockShortcutPayloadData,
   shortcutCallback,
-  methodToFail = global.openViewMockFunc,
+  methodToFail = global.viewOpenMockFunc,
 ) => {
   const callbackInput = mockShortcutCallbackInput(mockShortcutPayloadData);
   await global.testErrorLog(shortcutCallback(callbackInput), methodToFail);
