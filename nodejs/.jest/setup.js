@@ -22,6 +22,7 @@ global.viewPublishMockFunc = jest.fn();
 // Mocks the client.chat.update method
 global.chatUpdateMockFunc = jest.fn();
 // Mocks the client.chat.postMessage method
+// TODO: Respond with message id, update the main code to use the response message id
 global.chatPostMessageMockFunc = jest.fn();
 // Mocks the client.chat.scheduleMessage method
 global.chatScheduleMessageMockFunc = jest.fn(
@@ -70,6 +71,7 @@ global.isValidJSON = (jsonString) => {
 };
 
 // TODO: Find a better way to organize the parameters for the testListener function.
+// TODO: Instead of passing a single API method and its respective args that we expect to be called, pass an object with mockedApiMethod as key and the mockedAApiMethodArgs as value.
 global.testListener = async (
   callbackFunctionPromiseToTest,
   mockedApiMethod,
