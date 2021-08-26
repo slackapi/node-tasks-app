@@ -27,11 +27,9 @@ const testView = async (
 
   const callbackFunctionPromiseToTest = viewCallback(callbackInput);
 
-  await global.testListener(
-    callbackFunctionPromiseToTest,
-    mockedApiMethod,
-    mockedApiMethodArgObj,
-  );
+  const apiMethodsToCall = [{ mockedApiMethod, mockedApiMethodArgObj }];
+
+  await global.testListener(callbackFunctionPromiseToTest, apiMethodsToCall);
 };
 
 const testViewAckError = async (

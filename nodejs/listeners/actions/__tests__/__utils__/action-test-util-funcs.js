@@ -32,11 +32,9 @@ const testAction = async (
 
   const callbackFunctionPromiseToTest = actionCallback(callbackInput);
 
-  await global.testListener(
-    callbackFunctionPromiseToTest,
-    mockedApiMethod,
-    mockedApiMethodArgObj,
-  );
+  const apiMethodsToCall = [{ mockedApiMethod, mockedApiMethodArgObj }];
+
+  await global.testListener(callbackFunctionPromiseToTest, apiMethodsToCall);
 };
 
 const testActionError = async (

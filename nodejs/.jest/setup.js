@@ -70,27 +70,33 @@ global.isValidJSON = (jsonString) => {
   return false;
 };
 
-// TODO: Find a better way to organize the parameters for the testListener function.
-// TODO: Instead of passing a single API method and its respective args that we expect to be called, pass an object with mockedApiMethod as key and the mockedAApiMethodArgs as value.
+// A helper function to test if a listener's callback function successfully runs and calls all the API methods that it should with the proper arguments
+// apiMethods is an array of objects every object contains the mocked version of the API method and the arguments that should be passed to it
 global.testListener = async (
   callbackFunctionPromiseToTest,
-  mockedApiMethod,
-  mockedApiMethodArgObj,
+  apiMethodsToCall,
   usesAck = true,
 ) => {
+  // Call the callback function
   await callbackFunctionPromiseToTest;
 
-  // We expect a string as the view value since we are using the Slack Block Builder which returns JSON strings
-  expect(mockedApiMethod).toBeCalledWith(
-    expect.objectContaining(mockedApiMethodArgObj),
-  );
+  for (const apiMethod of apiMethodsToCall) {
+    const mockedFunction = apiMethod['mockedApiMethod'];
+    const mockedFunctionArgument = apiMethod['mockedApiMethodArgObj'];
 
-  if ('view' in mockedApiMethodArgObj) {
-    // We also test whether the "view" key of the mocked client.views.publish method was given valid JSON
-    const mockedApiMethodViewArg = mockedApiMethod.mock.calls[0][0];
-    expect(global.isValidJSON(mockedApiMethodViewArg.view)).toBeTruthy();
+    expect(mockedFunction).toBeCalledWith(
+      expect.objectContaining(mockedFunctionArgument),
+    );
+
+    // If the argument contains a "view" key (ex. in the case of the client.views.publish method), we check that the blocks are valid JSON
+    // We expect a string as the view value since we are using the Slack Block Builder which returns JSON strings
+    if ('view' in mockedFunctionArgument) {
+      const mockedApiMethodViewArg = mockedFunction.mock.calls[0][0];
+      expect(global.isValidJSON(mockedApiMethodViewArg.view)).toBeTruthy();
+    }
   }
 
+  // If the callback function calls the ack() method, we expect the ack mock function to be called
   if (usesAck) expect(global.ackMockFunc).toHaveBeenCalledTimes(1);
 };
 

@@ -26,11 +26,9 @@ const testShortcut = async (
     view: expect.any(String),
   };
 
-  await global.testListener(
-    callbackFunctionPromiseToTest,
-    mockedApiMethod,
-    mockedApiMethodArgObj,
-  );
+  const apiMethodsToCall = [{ mockedApiMethod, mockedApiMethodArgObj }];
+
+  await global.testListener(callbackFunctionPromiseToTest, apiMethodsToCall);
 };
 
 const testShortcutError = async (
