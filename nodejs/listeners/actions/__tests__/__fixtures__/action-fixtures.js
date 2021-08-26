@@ -95,7 +95,16 @@ const appHomeBlockChecklistSelectionActionPayloadBase = (
 const appHomeBlockChecklistSelectionActionPayload =
   appHomeBlockChecklistSelectionActionPayloadBase([
     {
-      selected_options: [{ text: [Object], value: 'open-task-2' }],
+      selected_options: [
+        {
+          text: {
+            type: 'mrkdwn',
+            text: '*example task here*',
+            verbatim: false,
+          },
+          value: 'open-task-2',
+        },
+      ],
       action_id: 'blockOpenTaskCheckboxClicked',
       block_id: 'open-task-status-change-0',
       type: 'checkboxes',
