@@ -1,7 +1,7 @@
 const {
   validateAppHomeOpenedCallback,
   mockAppHomeEventCallbackInput,
-} = require('./__utils__/app_home_opened_helper');
+} = require('./__utils__/event-test-util-funcs');
 const {
   mockAppHomeOpenedEventNewUser,
   mockAppHomeOpenedEventExistingUser,
