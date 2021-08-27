@@ -16,4 +16,9 @@ module.exports = {
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
 
+  // Ignores the utility functions folder
+  testPathIgnorePatterns: ['/__fixtures__/', '/__utils__/'],
+
+  // Global setup configuration
+  setupFilesAfterEnv: ['<rootDir>/.jest/setup.js'],
 };

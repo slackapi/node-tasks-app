@@ -1,4 +1,8 @@
-/* eslint-disable global-require */
+const { appHomeOpenedCallback } = require('./app_home_opened');
+
+const appHomeOpenedListener = (app) =>
+  app.event('app_home_opened', appHomeOpenedCallback);
+
 module.exports = {
-  appHomeOpened: require('./app_home_opened'),
+  appHomeOpened: appHomeOpenedListener,
 };

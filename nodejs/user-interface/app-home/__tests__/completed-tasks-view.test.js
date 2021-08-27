@@ -62,4 +62,6 @@ test('Returns blocks for the completed task list home view if no tasks available
   expect(completedTasksView([])).toEqual(JSON.stringify(expected));
 });
 
-test.todo('Returns blocks for the completed task list home view if completed tasks available');
+test.todo(
+  'Returns blocks for the completed task list home view if completed tasks available',
+);
