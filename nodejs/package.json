@@ -33,7 +33,7 @@
     "pluralize": "^8.0.0",
     "sequelize": "^6.6.5",
     "slack-block-builder": "^2.1.1",
-    "sqlite3": "github:mapbox/node-sqlite3#593c9d"
+    "sqlite3": "git+https://github.com/mapbox/node-sqlite3.git#593c9d"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
