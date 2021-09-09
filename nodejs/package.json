@@ -25,22 +25,22 @@
   },
   "homepage": "https://github.com/slackapi/tasks-app#readme",
   "dependencies": {
-    "@slack/bolt": "^3.4.0",
+    "@slack/bolt": "^3.6.0",
     "dotenv": "^10.0.0",
-    "eslint-plugin-jest": "^24.3.6",
-    "luxon": "^1.27.0",
-    "nodemon": "^2.0.9",
+    "eslint-plugin-jest": "^24.4.0",
+    "luxon": "^1.28.0",
+    "nodemon": "^2.0.12",
     "pluralize": "^8.0.0",
-    "sequelize": "^6.6.2",
-    "slack-block-builder": "^2.0.1",
+    "sequelize": "^6.6.5",
+    "slack-block-builder": "^2.1.1",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.30.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "jest": "^27.0.4",
+    "eslint-plugin-import": "^2.24.2",
+    "jest": "^27.1.0",
     "sequelize-cli": "^6.2.0"
   }
 }
