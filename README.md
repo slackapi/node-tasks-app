@@ -1,6 +1,6 @@
 # Tasks App
 
-Tasks App is a sample Task Management app built on the [Slack Platform](https://api.slack.com). 
+Tasks App is a sample Task Management app built on the [Slack Platform](https://api.slack.com). To learn more about it, check out this [blog post](https://slack.com/intl/en-ie/blog/developers/sharpen-development-skills-tasks-app).
 
 🚨 This app is under active development. 🚨
 
