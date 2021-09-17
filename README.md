@@ -6,6 +6,18 @@ Tasks App is a sample Task Management app built on the [Slack Platform](https://
 
 Much functionality is currently unavailable. `main` is considered stable, so you're free to clone and run it, but there's not much to do for now. We've developing it here in the open though, so feel free to follow along in the Pull requests and issues to get a sense for the decisions being made.
 
+If you want to see the app in action, there's some screenshots below, or you can clone the repo and run it locally.
+## Screenshots
+
+### Tasks list on App Home
+![Tasks list on App Home](./images/tasks-home-screen.png)
+
+### Creating tasks with a Global Shortcut
+![Creating tasks with a global shortcut](./images/tasks-shortcut.gif)
+
+### Creating tasks from a message with a Message Shortcut
+![Creating tasks from a message with a Message Shortcut](./images/tasks-message-shortcut.gif)
+
 ## Project Structure
 
 ### App code
