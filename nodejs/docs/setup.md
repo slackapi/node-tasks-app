@@ -29,3 +29,7 @@ Before you can run the app, you'll need to store some environment variables.
 **Run Bolt Server**
 
 `node app.js`
+
+## Tutorial
+
+More of a visual person? You can checkout [a video walkthrough](https://www.youtube.com/watch?v=q3SBz_eqOq0) of these instructions.
