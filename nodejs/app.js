@@ -66,7 +66,7 @@ actionsListener.blockButtonMarkAsDone(app);
     await app.start();
 
     // eslint-disable-next-line no-console
-    console.log('⚡️ Bolt app is running!');
+    console.log('⚡️ Tasks app is running!');
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Unable to start App', error);
