@@ -6,6 +6,7 @@ global.viewOpenMockFunc = jest.fn();
 global.viewPublishMockFunc = jest.fn();
 // Mocks the client.chat.update method
 global.chatUpdateMockFunc = jest.fn();
+global.deleteScheduledMessageMockFunc = jest.fn();
 // Mocks the client.chat.postMessage method
 // TODO: Respond with message id, update the main code to use the response message id
 global.chatPostMessageMockFunc = jest.fn();

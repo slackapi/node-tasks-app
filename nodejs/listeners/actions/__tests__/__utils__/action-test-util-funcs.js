@@ -10,6 +10,7 @@ const mockActionCallbackInput = (actionPayload) => ({
     },
     chat: {
       update: global.chatUpdateMockFunc,
+      deleteScheduledMessage: global.deleteScheduledMessageMockFunc,
     },
   },
   action: actionPayload.actions[0],
