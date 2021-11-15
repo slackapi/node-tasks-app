@@ -17,19 +17,19 @@ let logLevel;
 
 switch (process.env.LOG_LEVEL) {
   case 'debug':
-    logLevel = LogLevel.Debug;
+    logLevel = LogLevel.DEBUG;
     break;
   case 'info':
-    logLevel = LogLevel.Info;
+    logLevel = LogLevel.INFO;
     break;
   case 'warn':
-    logLevel = LogLevel.Warn;
+    logLevel = LogLevel.WARN;
     break;
   case 'error':
-    logLevel = LogLevel.Error;
+    logLevel = LogLevel.ERROR;
     break;
   default:
-    logLevel = LogLevel.Info;
+    logLevel = LogLevel.INFO;
 }
 
 // Initializes your app with your bot token and signing secret
