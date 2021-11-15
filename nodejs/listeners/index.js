@@ -3,9 +3,9 @@ const viewsListener = require('./views');
 const eventsListener = require('./events');
 const actionsListener = require('./actions');
 
-module.exports = {
-  shortcutsListener,
-  viewsListener,
-  eventsListener,
-  actionsListener,
+module.exports.registerListeners = (app) => {
+  shortcutsListener.register(app);
+  viewsListener.register(app);
+  eventsListener.register(app);
+  actionsListener.register(app);
 };

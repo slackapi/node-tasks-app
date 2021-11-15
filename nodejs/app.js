@@ -6,15 +6,9 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(process.env.DB_URI);
 
-const {
-  shortcutsListener,
-  viewsListener,
-  eventsListener,
-  actionsListener,
-} = require('./listeners');
+const { registerListeners } = require('./listeners');
 
 let logLevel;
-
 switch (process.env.LOG_LEVEL) {
   case 'debug':
     logLevel = LogLevel.DEBUG;
@@ -39,20 +33,7 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN,
   logLevel,
 });
-
-shortcutsListener.globalNewTask(app);
-shortcutsListener.messageNewTask(app);
-
-viewsListener.newTaskModal(app);
-
-eventsListener.appHomeOpened(app);
-
-actionsListener.blockOpenTaskCheckboxClicked(app);
-actionsListener.blockCreateATaskAppHome(app);
-actionsListener.blockAppHomeNavOpen(app);
-actionsListener.blockAppHomeNavCompleted(app);
-actionsListener.blockReopenTask(app);
-actionsListener.blockButtonMarkAsDone(app);
+registerListeners(app);
 
 (async () => {
   try {
