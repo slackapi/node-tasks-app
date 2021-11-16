@@ -1,8 +1,5 @@
 const { newTaskModalCallback } = require('./new-task-modal');
 
-const newTaskModalListener = (app) =>
+module.exports.register = (app) => {
   app.view('new-task-modal', newTaskModalCallback);
-
-module.exports = {
-  newTaskModal: newTaskModalListener,
 };
