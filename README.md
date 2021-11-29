@@ -6,9 +6,12 @@ Tasks App is a sample Task Management app built on the [Slack Platform](https://
 
 As Tasks App is a tool designed to teach you about the Slack Platform, we don't currently offer a hosted version. If you're looking for a project management tool for your organisation, check out the many options available on our [App Directory](https://my.slack.com/apps/category/At0EFY3MJ4-project-management).
 
-We've begun development using Bolt for NodeJS, but plan to eventually support all of the languages we provide an SDK for.
-
 If you want to see the app in action, there's some screenshots below, or you can clone the repo and run it locally.
+
+## App code
+
+- [Setup](./docs/setup.md)
+- [Project structure](./docs/structure.md)
 ## Screenshots
 
 ### Tasks list on App Home
@@ -19,13 +22,3 @@ If you want to see the app in action, there's some screenshots below, or you can
 
 ### Creating tasks from a message with a Message Shortcut
 ![Creating tasks from a message with a Message Shortcut](./images/tasks-message-shortcut.gif)
-
-## Project Structure
-
-### App code
-
-This repository contains the Tasks App implemented in the *three* languages supported by our [Bolt Framework](https://api.slack.com/tools/bolt). For more details on each implementation, checkout the README.md in the respective folder
-
-- [Python](./python)
-- [Node.js](./nodejs)
-- [Java](./java)
