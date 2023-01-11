@@ -28,7 +28,7 @@
     "@slack/bolt": "^3.8.1",
     "dotenv": "^10.0.0",
     "eslint-plugin-jest": "^24.4.2",
-    "luxon": "^1.28.0",
+    "luxon": "^1.28.1",
     "nodemon": "^2.0.12",
     "pluralize": "^8.0.0",
     "sequelize": "^6.6.5",
