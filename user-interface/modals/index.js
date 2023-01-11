@@ -1,7 +1,8 @@
 /* eslint-disable global-require */
 
 module.exports = {
-  newTask: require('./new-task'),
-  taskCreated: require('./task-created'),
-  taskCreationError: require('./task-creation-error'),
+  messageShortcut: require('./message-shortcut'),
+  messageSent: require('./message-sent'),
+  messageSentError: require('./message-sent-error'),
+
 };

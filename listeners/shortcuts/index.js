@@ -1,7 +1,7 @@
-const { messageNewTaskCallback } = require('./message-new-task');
-const { globalNewTaskCallback } = require('./global-new-task');
+const {messageShortcutCallback} = require('./message');
 
 module.exports.register = (app) => {
-  app.shortcut('message_new_task', messageNewTaskCallback);
-  app.shortcut('global_new_task', globalNewTaskCallback);
+
+  app.shortcut('send-message', messageShortcutCallback);
+  
 };

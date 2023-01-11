@@ -1,5 +1,5 @@
-const { newTaskModalCallback } = require('./new-task-modal');
+const { newMessageShortcutCallback } = require('./message-shortcut-modal');
 
 module.exports.register = (app) => {
-  app.view('new-task-modal', newTaskModalCallback);
+  app.view('submit-form', newMessageShortcutCallback);
 };

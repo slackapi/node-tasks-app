@@ -1,5 +1,6 @@
-const { appHomeOpenedCallback } = require('./app_home_opened');
+const { sendLinkEventApp } = require('./send-link-event');
 
 module.exports.register = (app) => {
-  app.event('app_home_opened', appHomeOpenedCallback);
+  console.log('request is coming here')
+  app.event('message', sendLinkEventApp);
 };

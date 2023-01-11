@@ -2,35 +2,31 @@ _metadata:
   major_version: 1
   minor_version: 1
 display_information:
-  name: Tasks
+  name: Pintel-slack-bot
 features:
-  app_home:
-    home_tab_enabled: true
-    messages_tab_enabled: true
-    messages_tab_read_only_enabled: true
   bot_user:
-    display_name: Tasks
+    display_name: Pintel-slack-bot
     always_online: false
   shortcuts:
-    - name: Create a task
-      type: global
-      callback_id: global_new_task
-      description: Quickly add a task to your list
-    - name: Create a task
+    - name: Send to
       type: message
-      callback_id: message_new_task
-      description: Create a task from this message
+      callback_id: send-message
+      description: Send to
 oauth_config:
   scopes:
     bot:
-      # Allows us to add the shortcuts for creating tasks
-      - commands
-      # Allows us to send task reminders via a DM from the bot
       - chat:write
+      - commands
+      - channels:history
+      - groups:history
+      - users:read.email
+      - users:read
+      - chat.postMessage
 settings:
   event_subscriptions:
     bot_events:
-      - app_home_opened
+      - message.channels
+      - message.groups
   interactivity:
     is_enabled: true
   org_deploy_enabled: false
